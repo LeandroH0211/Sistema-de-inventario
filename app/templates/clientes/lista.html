@@ -1,0 +1,73 @@
+{% extends 'layout.html' %} 
+
+{% block title %}Clientes{% endblock %} 
+{% block page_title %}CLIENTES{% endblock %} 
+
+{% block content %} 
+
+<div class="top-bar"> 
+
+    <div class="filters"> 
+        <input type="text" placeholder="Buscar clientes"> 
+    </div> 
+
+    <button class="btn-green"> 
+    <i class="bi bi-plus-lg" style="font-size: 20px;"></i>
+    NUEVO CLIENTE 
+</button>
+
+</div> 
+
+<table> 
+    <thead> 
+        <tr> 
+            <th>NOMBRE</th> 
+            <th>DIRECCIÓN</th> 
+            <th>TELÉFONO</th> 
+            <th>CORREO ELECTRÓNICO</th> 
+            <th>ACCIONES</th> 
+        </tr> 
+    </thead> 
+
+    <tbody> 
+
+        <tr> 
+            <td>Valentina Salazar</td> 
+            <td>Cra 42b #45-75</td> 
+            <td>300-9090-989</td> 
+            <td>salazar123@gmail.com</td> 
+            <td> 
+                <button class="btn-edit"> 
+                    <i class="bi bi-pencil"></i>Editar
+                </button> 
+                <button class="btn-delete"> 
+                    <i class="bi bi-trash"></i>Eliminar
+                </button> 
+                <button class="btn-detail">Detalle
+                <i class="bi bi-eye"></i>
+</button>
+            </td> 
+        </tr> 
+
+        <tr> 
+            <td>Leandro Herrera</td> 
+            <td>Cra 45b #90-100</td> 
+            <td>311-9350-909</td> 
+            <td>herrera456@gmail.com</td> 
+            <td> 
+                <button class="btn-edit"> 
+                    <i class="bi bi-pencil"></i>Editar
+                </button> 
+                <button class="btn-delete"> 
+                    <i class="bi bi-trash"></i>Eliminar
+                </button> 
+                <button class="btn-detail">Detalle
+                 <i class="bi bi-eye"></i>
+</button>
+            </td> 
+        </tr> 
+
+    </tbody> 
+</table> 
+
+{% endblock %}

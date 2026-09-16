@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+
+{% block title %}Productos{% endblock %}
+{% block page_title %}PRODUCTOS{% endblock %}
+
+{% block content %}
+
+<div class="top-bar">
+<div class="filters">
+    <input type="text" placeholder="Buscar productos">
+
+    <div class="select-container">
+        <select>
+            <option>Todas las categorías</option>
+            <option>Electrónicos</option>
+            <option>Muebles</option>
+        </select>
+        <i class="bi bi-caret-down-fill"></i>
+    </div>
+</div>
+
+    <button class="btn-green"> 
+    <i class="bi bi-plus-lg"></i>
+    NUEVO PRODUCTO 
+</button>
+
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>PRODUCTO</th>
+            <th>DESCRIPCIÓN</th>
+            <th>CATEGORÍA</th>
+            <th>PRECIO</th>
+            <th>STOCK</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <!-- EJEMPLOS -->
+        <tr>
+            <td>Monitor 27</td>
+            <td>Monitor LED 27 pulgadas</td>
+            <td>Electrónicos</td>
+            <td>$450.900</td>
+            <td class="stock-ok">10</td>
+            <td>
+                <button class="btn-edit">
+                    <i class="bi bi-pencil"></i> Editar
+                </button>
+                <button class="btn-delete">
+                    <i class="bi bi-trash"></i> Eliminar
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Teclado Mecánico</td>
+            <td>Teclado RGB</td>
+            <td>Electrónicos</td>
+            <td>$130.000</td>
+            <td class="stock-bajo">0</td>
+            <td>
+                <button class="btn-edit">
+                    <i class="bi bi-pencil"></i> Editar
+                </button>
+                <button class="btn-delete">
+                    <i class="bi bi-trash"></i> Eliminar
+                </button>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+{% endblock %}

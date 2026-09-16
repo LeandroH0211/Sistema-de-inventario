@@ -1,0 +1,124 @@
+{% extends 'layout.html' %}
+
+{% block title %}Crear Venta{% endblock %}
+{% block page_title %}Crear una orden nueva{% endblock %}
+
+{% block content %}
+
+<div class="venta-grid">
+
+    <!-- CLIENTE -->
+    <div class="form-group">
+        <label>CLIENTE:</label>
+
+        <div class="select-container">
+            <select>
+                <option>Seleccionar cliente</option>
+                <option>Valentina Salazar</option>
+                <option>Leandro Herrera</option>
+            </select>
+
+            <i class="bi bi-caret-down-fill"></i>
+        </div>
+    </div>
+
+    <!-- FECHA -->
+    <div class="form-group">
+        <label>FECHA:</label>
+
+        <div class="date-container">
+            <input type="date" value="2026-09-09">
+            <i class="bi bi-calendar-date calendario-icono"></i>
+        </div>
+    </div>
+
+    <!-- ESTADO -->
+    <div class="form-group">
+        <label>ESTADO:</label>
+        <input type="text" placeholder="Pendiente/ Completada/ Cancelada">
+    </div>
+
+</div>
+
+<br>
+
+<!-- PRODUCTOS -->
+<div class="card">
+
+    <h3 class="section-title">PRODUCTOS</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>PRODUCTO</th>
+                <th>CANTIDAD</th>
+                <th>PRECIO</th>
+                <th>SUBTOTAL</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+
+               <td>
+    <div class="select-container">
+        <select>
+            <option>Seleccionar producto</option>
+            <option>Monitor 27</option>
+            <option>Teclado RGB</option>
+        </select>
+
+        <i class="bi bi-caret-down-fill"></i>
+    </div>
+</td>
+
+                <td><input type="number" value="1"></td>
+                <td><input type="number" value="0"></td>
+                <td>$0</td>
+
+                <td>
+                    <button class="btn-delete">
+                        <i class="bi bi-trash"></i>Eliminar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <button class="btn-green">
+        <i class="bi bi-plus-circle-fill"></i>
+        Agregar línea
+    </button>
+
+</div>
+
+<br>
+
+<!-- RESUMEN -->
+<div class="venta-footer">
+
+    <div class="resumen">
+        <h3>RESUMEN</h3>
+
+        <label>SUBTOTAL</label>
+        <input type="text" readonly>
+
+        <label>DESCUENTO</label>
+        <input type="text">
+
+        <label>TOTAL</label>
+        <input type="text" readonly>
+    </div>
+
+    <!-- BOTONES UBICADOS DIRECTAMENTE DEBAJO -->
+    <div class="acciones">
+        <button type="button" class="btn-cancelar">CANCELAR</button>
+        <button type="submit" class="btn-green btn-registrar">REGISTRAR VENTA</button>
+    </div>
+
+</div>
+
+{% endblock %}
