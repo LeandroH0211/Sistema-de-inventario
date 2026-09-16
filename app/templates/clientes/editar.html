@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}Editar Producto{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/clientes.css') }}">
+{% endblock %}
+{% block page_title %}EDITAR PRODUCTO{% endblock %}
+
+{% block content %}
+
+<form method="POST" class="cliente-form">
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre" value="{{ cliente.nombre}}">
+
+    <label for="direccion">Direccion</label>
+    <input type="text" name="direccion" value="{{ cliente.direccion}}">
+
+    <label for="telefono">Telefono</label>
+    <input type="number" name="telefono" value="{{ cliente.telefono}}">
+
+    <label for="email">Email</label>
+    <input type="email" name="email" value="{{ cliente.email}}">
+
+    <button type="submit" class="btn-green">Guardar cambios</button>
+    <a href="{{ url_for('clientes.lista') }}" class="btn-delete">Cancelar</a>
+</form>
+
+{% endblock %}

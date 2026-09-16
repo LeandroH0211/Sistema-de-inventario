@@ -9,23 +9,23 @@
 {% block content %}
 
 <div class="top-bar">
-<div class="filters">
-    <input type="text" placeholder="Buscar productos">
+    <div class="filters">
+        <input type="text" placeholder="Buscar productos">
 
-    <div class="select-container">
-        <select>
-            <option>Todas las categorías</option>
-            <option>Electrónicos</option>
-            <option>Muebles</option>
-        </select>
-        <i class="bi bi-caret-down-fill"></i>
+        <div class="select-container">
+            <select>
+                <option>Todas las categorías</option>
+                <option>Electrónicos</option>
+                <option>Muebles</option>
+            </select>
+            <i class="bi bi-caret-down-fill"></i>
+        </div>
     </div>
-</div>
 
     <a href="{{ url_for('productos.nuevo') }}" class="btn-green">
-    <i class="bi bi-plus-lg"></i>
-    NUEVO PRODUCTO
-</a>
+        <i class="bi bi-plus-lg"></i>
+        NUEVO PRODUCTO
+    </a>
 
 </div>
 
@@ -50,9 +50,9 @@
             <td>${{ "{:,.0f}".format(producto.precio) }}</td>
             <td class="{{ 'stock-bajo' if producto.stock <= producto.stock_minimo else 'stock-ok' }}">{{ producto.stock }}</td>
             <td>
-                 <a href="{{ url_for('productos.editar', id_producto=producto.id_producto) }}" class="btn-edit">
-                 <i class="bi bi-pencil"></i> Editar
-                 </a>
+                <a href="{{ url_for('productos.editar', id_producto=producto.id_producto) }}" class="btn-edit">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
                 <a href="{{ url_for('productos.eliminar', id_producto=producto.id_producto) }}" class="btn-delete">
                     <i class="bi bi-trash"></i> Eliminar
                 </a>

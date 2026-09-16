@@ -13,13 +13,13 @@ def lista():
 def nuevo():
     if request.method == "POST":
         producto = Producto(
-    nombre=request.form["nombre"],
-    descripcion=request.form["descripcion"],
-    categoria=request.form["categoria"],
-    precio=request.form["precio"],
-    stock=request.form["stock"],
-    stock_minimo=request.form["stock_minimo"]
-)
+            nombre=request.form["nombre"],
+            descripcion=request.form["descripcion"],
+            categoria=request.form["categoria"],
+            precio=request.form["precio"],
+            stock=request.form["stock"],
+            stock_minimo=request.form["stock_minimo"]
+        )
         db.session.add(producto)
         db.session.commit()
         return redirect(url_for("productos.lista"))

@@ -1,7 +1,24 @@
+.page-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-centered > * {
+    width: min(520px, calc(100% - 8px));
+    box-sizing: border-box;
+}
+
 .producto-form {
     display: grid;
+    grid-template-columns: 1fr;
     gap: 8px;
     max-width: 520px;
+}
+
+.form-field {
+    display: grid;
+    gap: 8px;
 }
 
 .producto-form input {
@@ -10,7 +27,43 @@
     margin-bottom: 8px;
 }
 
+.form-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
 .producto-form .btn-green,
 .producto-form .btn-delete {
-    width: fit-content;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.producto-form .btn-delete {
+    background: red;
+    border-color: red;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.producto-form .btn-delete:hover {
+    background: #cc0000;
+    border-color: #cc0000;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+}
+
+@media (min-width: 768px) {
+    .producto-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .form-actions {
+        grid-column: 1 / -1;
+    }
 }
