@@ -2,3 +2,5 @@ venv/
 __pycache__/
 *.db
 .env
+check_db.py
+test_db.py
