@@ -6,6 +6,8 @@
 {% block content %}
 
 <form method="POST">
+    <label>Producto</label>
+    <input type="text" name="nombre" value="{{ producto.nombre }}" required>
     <label>Descripción</label>
     <input type="text" name="descripcion" value="{{ producto.descripcion }}" required>
 

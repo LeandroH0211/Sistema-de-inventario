@@ -13,12 +13,13 @@ def lista():
 def nuevo():
     if request.method == "POST":
         producto = Producto(
-            descripcion=request.form["descripcion"],
-            categoria=request.form["categoria"],
-            precio=request.form["precio"],
-            stock=request.form["stock"],
-            stock_minimo=request.form["stock_minimo"]
-        )
+    nombre=request.form["nombre"],
+    descripcion=request.form["descripcion"],
+    categoria=request.form["categoria"],
+    precio=request.form["precio"],
+    stock=request.form["stock"],
+    stock_minimo=request.form["stock_minimo"]
+)
         db.session.add(producto)
         db.session.commit()
         return redirect(url_for("productos.lista"))
@@ -37,6 +38,7 @@ def editar(id_producto):
     producto = Producto.query.get_or_404(id_producto)
 
     if request.method == "POST":
+        producto.nombre = request.form["nombre"]
         producto.descripcion = request.form["descripcion"]
         producto.categoria = request.form["categoria"]
         producto.precio = request.form["precio"]

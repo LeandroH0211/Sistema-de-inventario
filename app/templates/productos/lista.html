@@ -41,15 +41,15 @@
     <tbody>
         {% for producto in productos %}
         <tr>
-            <td>{{ producto.descripcion }}</td>
+            <td>{{ producto.nombre }}</td>
             <td>{{ producto.descripcion }}</td>
             <td>{{ producto.categoria }}</td>
             <td>${{ "{:,.0f}".format(producto.precio) }}</td>
             <td class="{{ 'stock-bajo' if producto.stock <= producto.stock_minimo else 'stock-ok' }}">{{ producto.stock }}</td>
             <td>
-                <button class="btn-edit">
-                    <i class="bi bi-pencil"></i> Editar
-                </button>
+                 <a href="{{ url_for('productos.editar', id_producto=producto.id_producto) }}" class="btn-edit">
+                 <i class="bi bi-pencil"></i> Editar
+                 </a>
                 <a href="{{ url_for('productos.eliminar', id_producto=producto.id_producto) }}" class="btn-delete">
                     <i class="bi bi-trash"></i> Eliminar
                 </a>
