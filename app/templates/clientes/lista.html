@@ -14,10 +14,10 @@
         <input type="text" placeholder="Buscar clientes"> 
     </div> 
 
-    <button class="btn-green"> 
-    <i class="bi bi-plus-lg" style="font-size: 20px;"></i>
-    NUEVO CLIENTE 
-</button>
+    <a href="{{ url_for('clientes.nuevo') }}" class="btn-green">
+        <i class="bi bi-plus-lg"></i>
+        NUEVO CLIENTE
+    </a>
 
 </div> 
 
@@ -33,43 +33,27 @@
     </thead> 
 
     <tbody> 
+        {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.direccion }}</td>
+                <td>{{ cliente.telefono }}</td>
+                <td>{{ cliente.email }}</td>
+                <td>
+                    <a href="{{ url_for('clientes.editar', id_cliente=cliente.id_cliente) }}" class="btn-edit">
+                        <i class="bi bi-pencil"></i>
+                        Editar
+                    </a>
 
-        <tr> 
-            <td>Valentina Salazar</td> 
-            <td>Cra 42b #45-75</td> 
-            <td>300-9090-989</td> 
-            <td>salazar123@gmail.com</td> 
-            <td> 
-                <button class="btn-edit"> 
-                    <i class="bi bi-pencil"></i>Editar
-                </button> 
-                <button class="btn-delete"> 
-                    <i class="bi bi-trash"></i>Eliminar
-                </button> 
-                <button class="btn-detail">Detalle
-                <i class="bi bi-eye"></i>
-</button>
-            </td> 
-        </tr> 
+                    <a href="{{ url_for('clientes.eliminar', id_cliente=cliente.id_cliente) }}" class="btn-delete">
+                        <i class="bi bi-trash"></i>
+                        Eliminar
+                    </a>
 
-        <tr> 
-            <td>Leandro Herrera</td> 
-            <td>Cra 45b #90-100</td> 
-            <td>311-9350-909</td> 
-            <td>herrera456@gmail.com</td> 
-            <td> 
-                <button class="btn-edit"> 
-                    <i class="bi bi-pencil"></i>Editar
-                </button> 
-                <button class="btn-delete"> 
-                    <i class="bi bi-trash"></i>Eliminar
-                </button> 
-                <button class="btn-detail">Detalle
-                 <i class="bi bi-eye"></i>
-</button>
-            </td> 
-        </tr> 
-
+                    <a href="" class="btn-detail"><i class="bi bi-eye"></i>Detalle</a>
+                </td>
+            </tr>
+        {% endfor %}
     </tbody> 
 </table> 
 

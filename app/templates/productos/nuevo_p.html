@@ -4,31 +4,46 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/productos.css') }}">
 {% endblock %}
+{% block main_class %}page-centered{% endblock %}
 {% block page_title %}NUEVO PRODUCTO{% endblock %}
 
 {% block content %}
 
 <form method="POST" class="producto-form">
-    <label>Producto</label>
-    <input type="text" name="nombre" required>
-    
-    <label>Descripción</label>
-    <input type="text" name="descripcion" required>
+    <div class="form-field">
+        <label>Producto</label>
+        <input type="text" name="nombre" required>
+    </div>
 
-    <label>Categoría</label>
-    <input type="text" name="categoria">
+    <div class="form-field">
+        <label>Descripción</label>
+        <input type="text" name="descripcion" required>
+    </div>
 
-    <label>Precio</label>
-    <input type="number" step="0.01" name="precio" required>
+    <div class="form-field">
+        <label>Categoría</label>
+        <input type="text" name="categoria">
+    </div>
 
-    <label>Stock</label>
-    <input type="number" name="stock" value="0" required>
+    <div class="form-field">
+        <label>Precio</label>
+        <input type="number" step="0.01" name="precio" required>
+    </div>
 
-    <label>Stock mínimo</label>
-    <input type="number" name="stock_minimo" value="0" required>
+    <div class="form-field">
+        <label>Stock</label>
+        <input type="number" name="stock" value="0" required>
+    </div>
 
-    <button type="submit" class="btn-green">Guardar</button>
-    <a href="{{ url_for('productos.lista') }}" class="btn-delete">Cancelar</a>
+    <div class="form-field">
+        <label>Stock mínimo</label>
+        <input type="number" name="stock_minimo" value="0" required>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn-green">Guardar</button>
+        <a href="{{ url_for('productos.lista') }}" class="btn-delete">Cancelar</a>
+    </div>
 </form>
 
 {% endblock %}
