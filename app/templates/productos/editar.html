@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block title %}Editar Producto{% endblock %}
+{% block page_title %}EDITAR PRODUCTO{% endblock %}
+
+{% block content %}
+
+<form method="POST">
+    <label>Descripción</label>
+    <input type="text" name="descripcion" value="{{ producto.descripcion }}" required>
+
+    <label>Categoría</label>
+    <input type="text" name="categoria" value="{{ producto.categoria }}">
+
+    <label>Precio</label>
+    <input type="number" step="0.01" name="precio" value="{{ producto.precio }}" required>
+
+    <label>Stock</label>
+    <input type="number" name="stock" value="{{ producto.stock }}" required>
+
+    <label>Stock mínimo</label>
+    <input type="number" name="stock_minimo" value="{{ producto.stock_minimo }}" required>
+
+    <button type="submit" class="btn-green">Guardar cambios</button>
+    <a href="{{ url_for('productos.lista') }}" class="btn-delete">Cancelar</a>
+</form>
+
+{% endblock %}

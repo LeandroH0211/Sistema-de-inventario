@@ -19,10 +19,10 @@
     </div>
 </div>
 
-    <button class="btn-green"> 
+    <a href="{{ url_for('productos.nuevo') }}" class="btn-green">
     <i class="bi bi-plus-lg"></i>
-    NUEVO PRODUCTO 
-</button>
+    NUEVO PRODUCTO
+</a>
 
 </div>
 
@@ -39,40 +39,23 @@
     </thead>
 
     <tbody>
-
-        <!-- EJEMPLOS -->
+        {% for producto in productos %}
         <tr>
-            <td>Monitor 27</td>
-            <td>Monitor LED 27 pulgadas</td>
-            <td>Electrónicos</td>
-            <td>$450.900</td>
-            <td class="stock-ok">10</td>
+            <td>{{ producto.descripcion }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td>{{ producto.categoria }}</td>
+            <td>${{ "{:,.0f}".format(producto.precio) }}</td>
+            <td class="{{ 'stock-bajo' if producto.stock <= producto.stock_minimo else 'stock-ok' }}">{{ producto.stock }}</td>
             <td>
                 <button class="btn-edit">
                     <i class="bi bi-pencil"></i> Editar
                 </button>
-                <button class="btn-delete">
+                <a href="{{ url_for('productos.eliminar', id_producto=producto.id_producto) }}" class="btn-delete">
                     <i class="bi bi-trash"></i> Eliminar
-                </button>
+                </a>
             </td>
         </tr>
-
-        <tr>
-            <td>Teclado Mecánico</td>
-            <td>Teclado RGB</td>
-            <td>Electrónicos</td>
-            <td>$130.000</td>
-            <td class="stock-bajo">0</td>
-            <td>
-                <button class="btn-edit">
-                    <i class="bi bi-pencil"></i> Editar
-                </button>
-                <button class="btn-delete">
-                    <i class="bi bi-trash"></i> Eliminar
-                </button>
-            </td>
-        </tr>
-
+        {% endfor %}
     </tbody>
 </table>
 
