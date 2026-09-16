@@ -17,6 +17,7 @@ def create_app():
     app.register_blueprint(ventas)
 
     with app.app_context():
+        from app import models 
         db.create_all()
 
     return app
