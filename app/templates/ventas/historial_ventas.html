@@ -1,11 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block title %}Historial de Ventas{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ventas.css') }}">
+{% endblock %}
 {% block page_title %}Historial De Ventas{% endblock %}
 
 {% block content %}
 
-<div class="top-bar">
+<div class="top-bar historial-ventas">
 
     <div class="filters">
         <input type="text" placeholder="Buscar por ID venta">

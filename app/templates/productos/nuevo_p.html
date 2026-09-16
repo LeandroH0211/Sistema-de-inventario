@@ -1,11 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block title %}Nuevo Producto{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/productos.css') }}">
+{% endblock %}
 {% block page_title %}NUEVO PRODUCTO{% endblock %}
 
 {% block content %}
 
-<form method="POST">
+<form method="POST" class="producto-form">
     <label>Producto</label>
     <input type="text" name="nombre" required>
     

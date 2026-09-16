@@ -1,6 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block title %}Crear Venta{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ventas.css') }}">
+{% endblock %}
 {% block page_title %}Crear una orden nueva{% endblock %}
 
 {% block content %}

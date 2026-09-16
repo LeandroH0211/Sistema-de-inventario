@@ -1,0 +1,16 @@
+.producto-form {
+    display: grid;
+    gap: 8px;
+    max-width: 520px;
+}
+
+.producto-form input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+}
+
+.producto-form .btn-green,
+.producto-form .btn-delete {
+    width: fit-content;
+}

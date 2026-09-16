@@ -32,10 +32,6 @@ body {
     color: white;
 }
 
-/* =========================
-   INPUTS
-========================= */
-
 input,
 select {
     padding: 10px;
@@ -50,10 +46,6 @@ select:focus {
     border: 1px solid #35DBE6;
 }
 
-/* =========================
-   BOTÓN VERDE
-========================= */
-
 .btn-green {
     background: #35DBE6;
     border: none;
@@ -67,40 +59,8 @@ select:focus {
     color: black;
 }
 
-/* =========================
-   VENTA GRID
-========================= */
-
-.venta-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    align-items: end;
-}
-
-/* =========================
-   FORM GROUP
-========================= */
-
-.form-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 12px;
-    color: #35DBE6;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    height: 42px;
-    box-sizing: border-box;
-}
-
-/* =========================
-   SELECT PERSONALIZADO
-========================= */
-
-.select-container {
+.select-container,
+.date-container {
     position: relative;
     width: 100%;
 }
@@ -109,53 +69,13 @@ select:focus {
     width: 100%;
     height: 42px;
     padding: 10px 35px 10px 10px;
-
-    background: #1c1c3c;
-    border: 1px solid #333;
-    color: white;
-
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-
     border-radius: 6px;
 }
 
-.select-container i {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #35DBE6;
-    pointer-events: none;
-}
-
-/* =========================
-   FECHA (FIX FINAL)
-========================= */
-
-.date-container {
-    position: relative;
-    width: 100%;
-}
-
-.date-container input {
-    width: 100%;
-    height: 42px;
-    padding-right: 35px;
-
-    background: #1c1c3c;
-    border: 1px solid #333;
-    color: white;
-}
-
-/* OCULTA CALENDARIO NATIVO (NEGRO) */
-input[type="date"]::-webkit-calendar-picker-indicator {
-    opacity: 0;
-    display: none;
-}
-
-/* ICONO VERDE */
+.select-container i,
 .calendario-icono {
     position: absolute;
     right: 10px;
@@ -163,7 +83,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     transform: translateY(-50%);
     color: #35DBE6;
     pointer-events: none;
+}
+
+.calendario-icono {
     font-size: 18px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    display: none;
 }
 
 /* =========================
@@ -186,32 +114,62 @@ thead th {
 
 td, th {
     padding: 10px;
-    text-align: center;      
-    vertical-align: middle;  
+    text-align: center;
+    vertical-align: middle;
 }
 
 tbody tr {
     background: #1a1a3a;
     border-bottom: 1px solid #333;
 }
+
 td button,
 td a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 0 2px;          
+    margin: 0 2px;
 }
 
-/* =========================
-   BOTONES
-========================= */
-
-.btn-delete {
+.btn-delete,
+.btn-edit,
+.btn-detail {
     background: transparent;
-    border: 1px solid red;
-    color: red;
     padding: 5px 10px;
     cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.btn-delete {
+    border: 1px solid red;
+    color: red;
+}
+
+.btn-delete:hover {
+    background: red;
+    color: white;
+}
+
+.btn-edit {
+    border: 1px solid yellow;
+    color: yellow;
+    margin-right: 5px;
+}
+
+.btn-edit:hover {
+    background: yellow;
+    color: black;
+}
+
+.btn-detail {
+    border: 1px solid white;
+    color: white;
+}
+
+.btn-detail:hover {
+    background: white;
+    color: #35DBE6;
 }
 
 .btn-cancelar {
@@ -222,71 +180,6 @@ td a {
     border-radius: 10px;
     cursor: pointer;
 }
-/* =========================
-   RESUMEN
-========================= */
-
-.venta-footer {
-    display: flex;
-    flex-direction: column; /* Alinea el resumen y los botones verticalmente */
-    align-items: flex-start; /* Los alinea al lado izquierdo */
-    gap: 15px;
-    margin-top: 30px;
-}
-.resumen {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 8px 12px;
-    align-items: center;
-    min-width: 320px;
-}
-
-.resumen h3 {
-    grid-column: 1 / -1;
-    margin: 0 0 8px 0;
-    color: #35DBE6;
-    font-size: 14px;
-}
-
-.resumen label {
-    color: white;
-    font-weight: 700;
-    font-size: 13px;
-}
-
-.resumen input {
-    width: 100%;
-    background: #1c1c3c;
-    border: 1px solid #333;
-    color: white;
-    padding: 8px 10px;
-    border-radius: 4px;
-}
-
-/* =========================
-   ACCIONES (botones)
-========================= */
-
-.acciones {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-top: 5px;
-}
-/* =========================
-   BOTÓN REGISTRAR VENTA (exclusivo)
-========================= */
-
-.btn-registrar {
-    padding: 10px 10px;        /* 👈 tamaño solo de este botón */
-    font-size: 14px;
-    text-transform: uppercase;
-    min-width: 180px;          /* ancho mínimo, opcional */
-    justify-content: center;   /* centra el texto */
-}
-/* =========================
-   TOP BAR (filtros + botón)
-========================= */
 
 .top-bar {
     display: flex;
@@ -300,53 +193,60 @@ td a {
 .filters {
     display: flex;
     gap: 15px;
-    align-items: center;        /* 👈 alinea verticalmente ambos */
+    align-items: center;
     flex: 1;
     max-width: 700px;
 }
 
-/* Input de búsqueda */
 .filters input {
     flex: 1;
     min-width: 200px;
-    height: 42px;               /* 👈 MISMA altura */
-    padding: 0 15px;            /* 👈 sin padding vertical */
-    background: #1c1c3c;
-    border: 1px solid #333;
-    border-radius: 6px;
-    color: white;
-    box-sizing: border-box;     /* 👈 clave para que height se respete */
+    height: 42px;
+    padding: 0 15px;
+    box-sizing: border-box;
     font-size: 14px;
 }
 
-/* Select de categorías */
 .filters .select-container {
     width: 220px;
     flex-shrink: 0;
-    height: 42px;               /* 👈 MISMA altura */
+    height: 42px;
 }
 
 .filters .select-container select {
-    width: 100%;
-    height: 42px;               /* 👈 MISMA altura */
-    background: #1c1c3c;
-    border: 1px solid #333;
-    border-radius: 6px;
-    color: white;
-    padding: 0 35px 0 12px;     /* 👈 sin padding vertical */
-    box-sizing: border-box;     /* 👈 clave */
+    padding: 0 35px 0 12px;
+    box-sizing: border-box;
     font-size: 14px;
 }
 
-/* Botón NUEVO PRODUCTO */
 .top-bar .btn-green {
     padding: 12px 24px;
     font-size: 14px;
-    font-weight: 700;
     text-transform: uppercase;
-    border-radius: 25px;
-    white-space: nowrap;         /* evita que el texto se corte */
+    white-space: nowrap;
     flex-shrink: 0;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-container h1 {
+    margin: 0;
+    font-size: 52px;
+}
+
+.nav-logo {
+    height: 58px;
+    width: auto;
+    object-fit: contain;
+}
+
+.btn-green i {
+    font-size: 20px;
+    font-weight: bold;
 }
 .btn-edit {
     background: transparent;
@@ -438,6 +338,7 @@ td a {
     align-items: center;
     flex-shrink: 0;
 }
+
 /* =========================
    LOGO Y NAVBAR HEAD
 ========================= */

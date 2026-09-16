@@ -1,0 +1,123 @@
+.venta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    align-items: end;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: #35DBE6;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    height: 42px;
+    box-sizing: border-box;
+}
+
+.date-container input {
+    width: 100%;
+    height: 42px;
+    padding-right: 35px;
+}
+
+.card {
+    margin-top: 15px;
+}
+
+.section-title {
+    color: #35DBE6;
+}
+
+.venta-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.resumen {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 12px;
+    align-items: center;
+    min-width: 320px;
+}
+
+.resumen h3 {
+    grid-column: 1 / -1;
+    margin: 0 0 8px 0;
+    color: #35DBE6;
+    font-size: 14px;
+}
+
+.resumen label {
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.resumen input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 4px;
+}
+
+.acciones {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.btn-registrar {
+    padding: 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+    min-width: 180px;
+    justify-content: center;
+}
+
+.historial-ventas .filters .date-container {
+    width: 160px;
+    flex-shrink: 0;
+    height: 42px;
+}
+
+.historial-ventas .filters .date-container input {
+    padding: 0 35px 0 12px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.date-arrow {
+    color: #35DBE6;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.estado-completada,
+.estado-pendiente,
+.estado-cancelada {
+    font-weight: 700;
+}
+
+.estado-completada {
+    color: #35DBE6;
+}
+
+.estado-pendiente {
+    color: #ffcc00;
+}
+
+.estado-cancelada {
+    color: red;
+}

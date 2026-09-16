@@ -1,6 +1,9 @@
 {% extends 'layout.html' %} 
 
 {% block title %}Clientes{% endblock %} 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/clientes.css') }}">
+{% endblock %}
 {% block page_title %}CLIENTES{% endblock %} 
 
 {% block content %} 
@@ -18,7 +21,7 @@
 
 </div> 
 
-<table> 
+<table class="clientes-table">
     <thead> 
         <tr> 
             <th>NOMBRE</th> 
