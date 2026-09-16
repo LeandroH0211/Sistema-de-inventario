@@ -22,3 +22,13 @@ class Producto(db.Model):
     stock_minimo = db.Column(db.Integer, default=0)
     
     
+class Venta(db.Model):
+    __tablename__ = 'venta'
+
+    id_venta = db.Column(db.Integer, primary_key=True)
+    id_cliente = db.Column(db.Integer, db.ForeignKey('cliente.id_cliente'), nullable=False)
+    fecha = db.Column(db.Date, nullable=False)
+    estado = db.Column(db.String(20), default='Pendiente')  # Pendiente, Completada, Cancelada
+    total = db.Column(db.Numeric(12, 2), nullable=False)
+
+    detalles = db.relationship('DetalleVenta', backref='venta', lazy=True)
