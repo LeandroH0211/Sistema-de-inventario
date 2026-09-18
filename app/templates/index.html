@@ -3,31 +3,29 @@
 {% block title %}Inicio - Tech-Dragon{% endblock %}
 
 {% block extra_css %}
-<<<<<<< HEAD
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-=======
-<<<<<<< HEAD
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-=======
-<style>
-    .home-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 1.5rem;
-        margin-top: 1rem;
-        max-width: 900px;
-    }
+{% endblock %}
 
-    .home-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0.7rem;
-        padding: 2rem 1rem;
-        border-radius: 14px;
-        text-decoration: none;
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% block page_title %}Bienvenido a Tech-Dragon{% endblock %}
+
+{% block content %}
+
+<div class="home-grid">
+    <a href="{{ url_for('productos.lista') }}" class="home-card">
+        <i class="bi bi-box-seam"></i>
+        <span>Productos</span>
+    </a>
+
+    <a href="{{ url_for('clientes.lista') }}" class="home-card">
+        <i class="bi bi-people-fill"></i>
+        <span>Clientes</span>
+    </a>
+
+    <a href="{{ url_for('ventas.nueva_venta') }}" class="home-card">
+        <i class="bi bi-plus-circle"></i>
+        <span>Crear Venta</span>
+    </a>
+
     <a href="{{ url_for('ventas.historial_ventas') }}" class="home-card">
         <i class="bi bi-list"></i>
         <span>Historial Ventas</span>
