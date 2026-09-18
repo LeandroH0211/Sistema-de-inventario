@@ -29,6 +29,14 @@
     margin-top: 15px;
 }
 
+.card > .btn-green {
+    transition: box-shadow 0.2s ease;
+}
+
+.card > .btn-green:hover {
+    box-shadow: 0 0 10px rgba(53, 219, 230, 0.7);
+}
+
 .section-title {
     color: #35DBE6;
 }
@@ -62,10 +70,12 @@
     font-size: 13px;
 }
 
-.resumen input {
+.resumen input,
+.resumen select {
     width: 100%;
     padding: 8px 10px;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .acciones {

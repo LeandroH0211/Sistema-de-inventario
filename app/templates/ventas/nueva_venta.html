@@ -8,120 +8,228 @@
 
 {% block content %}
 
-<div class="venta-grid">
+<form method="POST" action="{{ url_for('ventas.nueva_venta') }}">
+    <div class="venta-grid">
 
-    <!-- CLIENTE -->
-    <div class="form-group">
-        <label>CLIENTE:</label>
+        <!-- CLIENTE -->
+        <div class="form-group">
+            <label>CLIENTE:</label>
 
-        <div class="select-container">
-            <select>
-                <option>Seleccionar cliente</option>
-                <option>Valentina Salazar</option>
-                <option>Leandro Herrera</option>
-            </select>
+            <div class="select-container">
+                <select name="id_cliente" id="id_cliente" required>
+                    <option value="">Seleccionar cliente</option>
+                    {% for cliente in clientes %}
+                        <option value="{{ cliente.id_cliente }}">{{ cliente.nombre }}</option>
+                    {% endfor %}
+                </select>
 
-            <i class="bi bi-caret-down-fill"></i>
+                <i class="bi bi-caret-down-fill"></i>
+            </div>
         </div>
-    </div>
 
-    <!-- FECHA -->
-    <div class="form-group">
-        <label>FECHA:</label>
+        <!-- FECHA -->
+        <div class="form-group">
+            <label>FECHA:</label>
 
-        <div class="date-container">
-            <input type="date" value="2026-09-09">
-            <i class="bi bi-calendar-date calendario-icono"></i>
+            <div class="date-container">
+                <input type="date" name="fecha" value="2026-09-17" required>
+                <i class="bi bi-calendar-date calendario-icono"></i>
+            </div>
         </div>
+
+        <!-- ESTADO -->
+        <div class="form-group">
+            <label>ESTADO:</label>
+            <div class="select-container">
+                <select name="estado">
+                    <option>Pendiente</option>
+                    <option>Completada</option>
+                    <option>Cancelada</option>
+                </select>
+
+                <i class="bi bi-caret-down-fill"></i>
+            </div>
+        </div>
+
     </div>
 
-    <!-- ESTADO -->
-    <div class="form-group">
-        <label>ESTADO:</label>
-        <input type="text" placeholder="Pendiente/ Completada/ Cancelada">
-    </div>
+    <br>
 
-</div>
+    <!-- PRODUCTOS -->
+    <div class="card">
 
-<br>
+        <h3 class="section-title">PRODUCTOS</h3>
 
-<!-- PRODUCTOS -->
-<div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th>PRODUCTO</th>
+                    <th>CANTIDAD</th>
+                    <th>PRECIO</th>
+                    <th>SUBTOTAL</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
 
-    <h3 class="section-title">PRODUCTOS</h3>
+            <tbody id="productos-body">
+                <tr>
+                <td>
+                        <div class="select-container">
+                            <select name="id_producto" onchange="actualizarLinea(this)">
+                                <option value="">Seleccionar Producto</option>
+                                {% for producto in productos %}
+                                    <option value="{{ producto.id_producto }}" data-precio="{{ producto.precio }}" data-stock="{{ producto.stock }}">{{ producto.nombre }}</option>
+                                {% endfor %}
+                            </select>
 
-    <table>
-        <thead>
+                            <i class="bi bi-caret-down-fill"></i>
+                        </div>
+                    </td>
+
+                    <td><input type="number" name="cantidad" value="1" min="1" oninput="actualizarLinea(this)"></td>
+                    <td><input type="number" name="precio" value="0" min="0" step="0.01" readonly></td>
+                    <td class="subtotal-linea">$0.00</td>
+
+                    <td>
+                        <button type="button" class="btn-delete" onclick="eliminarLinea(this)">
+                            <i class="bi bi-trash"></i>Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <button type="button" class="btn-green" onclick="agregarLinea()">
+            <i class="bi bi-plus-circle-fill"></i>
+            Agregar línea
+        </button>
+
+        <template id="linea-producto-template">
             <tr>
-                <th>PRODUCTO</th>
-                <th>CANTIDAD</th>
-                <th>PRECIO</th>
-                <th>SUBTOTAL</th>
-                <th>ACCIONES</th>
-            </tr>
-        </thead>
+                <td>
+                    <div class="select-container">
+                        <select name="id_producto" onchange="actualizarLinea(this)">
+                            <option value="">Seleccionar Producto</option>
+                            {% for producto in productos %}
+                                <option value="{{ producto.id_producto }}" data-precio="{{ producto.precio }}" data-stock="{{ producto.stock }}">{{ producto.nombre }}</option>
+                            {% endfor %}
+                        </select>
 
-        <tbody>
-            <tr>
+                        <i class="bi bi-caret-down-fill"></i>
+                    </div>
+                </td>
 
-               <td>
-    <div class="select-container">
-        <select>
-            <option>Seleccionar producto</option>
-            <option>Monitor 27</option>
-            <option>Teclado RGB</option>
-        </select>
-
-        <i class="bi bi-caret-down-fill"></i>
-    </div>
-</td>
-
-                <td><input type="number" value="1"></td>
-                <td><input type="number" value="0"></td>
-                <td>$0</td>
+                <td><input type="number" name="cantidad" value="1" min="1" oninput="actualizarLinea(this)"></td>
+                <td><input type="number" name="precio" value="0" min="0" step="0.01" readonly></td>
+                <td class="subtotal-linea">$0.00</td>
 
                 <td>
-                    <button class="btn-delete">
+                    <button type="button" class="btn-delete" onclick="eliminarLinea(this)">
                         <i class="bi bi-trash"></i>Eliminar
                     </button>
                 </td>
             </tr>
-        </tbody>
-    </table>
+        </template>
+
+    </div>
 
     <br>
 
-    <button class="btn-green">
-        <i class="bi bi-plus-circle-fill"></i>
-        Agregar línea
-    </button>
+    <!-- RESUMEN -->
+    <div class="venta-footer">
 
-</div>
+        <div class="resumen">
+            <h3>RESUMEN</h3>
 
-<br>
+            <label>SUBTOTAL DE VENTA</label>
+            <input type="text" id="subtotal-venta" value="$0.00" readonly>
 
-<!-- RESUMEN -->
-<div class="venta-footer">
+            <label for="tipo_descuento">TIPO DE DESCUENTO</label>
+            <select id="tipo_descuento" name="tipo_descuento" onchange="actualizarTotales()">
+                <option value="porcentual">Porcentual</option>
+                <option value="fijo">Fijo</option>
+            </select>
 
-    <div class="resumen">
-        <h3>RESUMEN</h3>
+            <label>DESCUENTO</label>
+            <input type="number" id="descuento" name="descuento" value="1" min="1" step="0.01" oninput="actualizarDescuento(this)">
 
-        <label>SUBTOTAL</label>
-        <input type="text" readonly>
+            <label>TOTAL</label>
+            <input type="text" id="total-venta" value="$0.00" readonly>
+        </div>
 
-        <label>DESCUENTO</label>
-        <input type="text">
+        <!-- BOTONES UBICADOS DIRECTAMENTE DEBAJO -->
+        <div class="acciones">
+            <button type="button" class="btn-cancelar">CANCELAR</button>
+            <button type="submit" class="btn-green btn-registrar">REGISTRAR VENTA</button>
+        </div>
 
-        <label>TOTAL</label>
-        <input type="text" readonly>
     </div>
 
-    <!-- BOTONES UBICADOS DIRECTAMENTE DEBAJO -->
-    <div class="acciones">
-        <button type="button" class="btn-cancelar">CANCELAR</button>
-        <button type="submit" class="btn-green btn-registrar">REGISTRAR VENTA</button>
-    </div>
+</form>
 
-</div>
+<script>
+    function eliminarLinea(button) {
+        button.closest('tr').remove();
+        actualizarTotales();
+    }
+
+    function agregarLinea() {
+        const template = document.getElementById('linea-producto-template');
+        const productosBody = document.getElementById('productos-body');
+        productosBody.appendChild(template.content.cloneNode(true));
+    }
+
+    document.getElementById('productos-body').addEventListener('input', function(evento) {
+        if (evento.target.matches('input[name="cantidad"]')) {
+            actualizarLinea(evento.target);
+        }
+    });
+
+    function actualizarLinea(elemento) {
+        const fila = elemento.closest('tr');
+        const producto = fila.querySelector('select[name="id_producto"]');
+        const cantidad = fila.querySelector('input[name="cantidad"]');
+        const precio = fila.querySelector('input[name="precio"]');
+        const subtotal = fila.querySelector('.subtotal-linea');
+        const opcion = producto.options[producto.selectedIndex];
+        const precioProducto = parseFloat(opcion.dataset.precio) || 0;
+        const cantidadProducto = parseInt(cantidad.value, 10) || 0;
+        const subtotalLinea = precioProducto * cantidadProducto;
+
+        precio.value = precioProducto.toFixed(2);
+        subtotal.textContent = formatearMoneda(subtotalLinea);
+        actualizarTotales();
+    }
+
+    function actualizarTotales() {
+        let subtotalVenta = 0;
+
+        document.querySelectorAll('.subtotal-linea').forEach((celda) => {
+            subtotalVenta += parseFloat(celda.textContent.replace('$', '')) || 0;
+        });
+
+        const tipoDescuento = document.getElementById('tipo_descuento').value;
+        const valorDescuento = parseFloat(document.getElementById('descuento').value) || 1;
+        const descuento = tipoDescuento === 'porcentual'
+            ? subtotalVenta * valorDescuento / 100
+            : valorDescuento;
+        const totalVenta = Math.max(0, subtotalVenta - descuento);
+
+        document.getElementById('subtotal-venta').value = formatearMoneda(subtotalVenta);
+        document.getElementById('total-venta').value = formatearMoneda(totalVenta);
+    }
+
+    function actualizarDescuento(input) {
+        input.value = Math.max(1, parseFloat(input.value) || 1);
+        actualizarTotales();
+    }
+
+    function formatearMoneda(valor) {
+        return `$${valor.toFixed(2)}`;
+    }
+</script>
+
 
 {% endblock %}

@@ -90,8 +90,9 @@ select:focus {
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-    opacity: 0;
-    display: none;
+    opacity: 1;
+    display: block;
+    cursor: pointer;
 }
 
 /* =========================
@@ -246,7 +247,8 @@ td a {
 }
 
 td a.btn-edit,
-td a.btn-delete {
+td a.btn-delete,
+td button.btn-delete {
     padding: 6px 12px;
     border: none;
     border-radius: 25px;
@@ -264,12 +266,14 @@ td a.btn-edit:hover {
     color: black;
 }
 
-td a.btn-delete {
+td a.btn-delete,
+td button.btn-delete {
     background: red;
     color: white;
 }
 
-td a.btn-delete:hover {
+td a.btn-delete:hover,
+td button.btn-delete:hover {
     background: #cc0000;
     color: white;
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);

@@ -4,7 +4,7 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/ventas.css') }}">
 {% endblock %}
-{% block page_title %}Historial De Ventas{% endblock %}
+{% block page_title %} Historial De Ventas {% endblock %}
 
 {% block content %}
 
@@ -53,77 +53,24 @@
     </thead>
 
     <tbody>
-        <tr>
-            <td>01</td>
-            <td>09-08-2026</td>
-            <td>Valentina Salazar</td>
-            <td>Laptop Lenovo ThinkPad, Monitor LG 27</td>
-            <td>$450.000</td>
-            <td class="estado-completada">Completada</td>
-        </tr>
-
-        <tr>
-            <td>02</td>
-            <td>09-09-2026</td>
-            <td>Valentina Salazar</td>
-            <td>Mouse Logitech MX, Teclado Mecánico</td>
-            <td>$350.000</td>
-            <td class="estado-completada">Completada</td>
-        </tr>
-
-        <tr>
-            <td>03</td>
-            <td>09-06-2026</td>
-            <td>Oriana Caballero</td>
-            <td>Laptop Lenovo ThinkPad, Monitor LG 27</td>
-            <td>$150.000</td>
-            <td class="estado-pendiente">Pendiente</td>
-        </tr>
-
-        <tr>
-            <td>04</td>
-            <td>09-05-2026</td>
-            <td>Carlos Manrique</td>
-            <td>Mouse Logitech MX, Teclado Mecánico</td>
-            <td>$190.000</td>
-            <td class="estado-cancelada">Cancelada</td>
-        </tr>
-
-        <tr>
-            <td>05</td>
-            <td>09-04-2026</td>
-            <td>Carlos Montenegro</td>
-            <td>Laptop Lenovo ThinkPad, Monitor LG 27</td>
-            <td>$290.000</td>
-            <td class="estado-completada">Completada</td>
-        </tr>
-
-        <tr>
-            <td>06</td>
-            <td>09-03-2026</td>
-            <td>Leandro Herrera</td>
-            <td>Monitor LG 27, Teclado Mecánico</td>
-            <td>$580.000</td>
-            <td class="estado-completada">Completada</td>
-        </tr>
-
-        <tr>
-            <td>07</td>
-            <td>09-02-2026</td>
-            <td>Camila Torres</td>
-            <td>Silla Ergonómica</td>
-            <td>$450.600</td>
-            <td class="estado-pendiente">Pendiente</td>
-        </tr>
-
-        <tr>
-            <td>08</td>
-            <td>09-01-2026</td>
-            <td>Andrés Ramírez</td>
-            <td>Escritorio de madera 120x60</td>
-            <td>$150.500</td>
-            <td class="estado-completada">Completada</td>
-        </tr>
+        {% for venta in ventas %}
+            <tr>
+                <td>{{ '%02d'|format(venta.id_venta) }}</td>
+                <td>{{ venta.fecha.strftime('%d-%m-%Y') }}</td>
+                <td>{{ venta.cliente.nombre }}</td>
+                <td>
+                    {% for detalle in venta.detalles %}
+                        {{ detalle.producto.nombre }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>${{ '%.2f'|format(venta.total|float) }}</td>
+                <td class="estado-{{ venta.estado|lower }}">{{ venta.estado }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No hay ventas registradas.</td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
 
