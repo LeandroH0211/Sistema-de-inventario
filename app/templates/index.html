@@ -1,9 +1,55 @@
+<<<<<<< HEAD
 {% extends 'layout2.html' %}
+=======
+{% extends 'layout.html' %}
+>>>>>>> origin/main
 
 {% block title %}Inicio - Tech-Dragon{% endblock %}
 
 {% block extra_css %}
+<<<<<<< HEAD
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+=======
+<style>
+    .home-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+        max-width: 900px;
+    }
+
+    .home-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7rem;
+        padding: 2rem 1rem;
+        border-radius: 14px;
+        text-decoration: none;
+        color: inherit;
+        background: linear-gradient(145deg, #1a1c2e, #14162a);
+        border: 1px solid #2a2d47;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .home-card:hover {
+        transform: translateY(-4px);
+        border-color: #5ce1e6;
+    }
+
+    .home-card i {
+        font-size: 2.2rem;
+        color: #5ce1e6;
+    }
+
+    .home-card span {
+        font-weight: 600;
+        font-size: 1.05rem;
+    }
+</style>
+>>>>>>> origin/main
 {% endblock %}
 
 {% block page_title %}Bienvenido a Tech-Dragon{% endblock %}

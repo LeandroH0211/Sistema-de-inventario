@@ -11,13 +11,17 @@ def create_app():
     from app.controllers.producto_controller import producto_bp
     from app.controllers.cliente_controller import cliente_bp
     from app.controllers.ventas_controller import ventas
+    from app.controllers.home_controller import home_bp
 
     app.register_blueprint(producto_bp)
     app.register_blueprint(cliente_bp)
     app.register_blueprint(ventas)
+    app.register_blueprint(home_bp)
+
+    print(app.url_map)   # línea temporal para diagnosticar
 
     with app.app_context():
-        from app import models 
+        from app import models
         db.create_all()
 
     return app
