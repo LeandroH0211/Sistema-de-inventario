@@ -1,28 +1,52 @@
 {% extends 'layout.html' %}
 
-{% block title %}Editar Producto{% endblock %}
+{% block title %}Editar Cliente{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/clientes.css') }}">
 {% endblock %}
-{% block page_title %}EDITAR PRODUCTO{% endblock %}
+
+{% block main_class %}page-centered{% endblock %}
+{% block page_title %}{% endblock %}
 
 {% block content %}
 
-<form method="POST" class="cliente-form">
-    <label for="nombre">Nombre</label>
-    <input type="text" name="nombre" value="{{ cliente.nombre}}">
+<div class="form-card">
 
-    <label for="direccion">Direccion</label>
-    <input type="text" name="direccion" value="{{ cliente.direccion}}">
+    <div class="form-header">
+        <h3>Editar Cliente</h3>
+        <a href="{{ url_for('clientes.lista') }}" class="close-btn">×</a>
+    </div>
 
-    <label for="telefono">Telefono</label>
-    <input type="number" name="telefono" value="{{ cliente.telefono}}">
+    <form method="POST" class="cliente-form">
 
-    <label for="email">Email</label>
-    <input type="email" name="email" value="{{ cliente.email}}">
+        <div class="form-field">
+            <label>Nombre</label>
+            <input type="text" name="nombre" value="{{ cliente.nombre }}" required>
+        </div>
 
-    <button type="submit" class="btn-green">Guardar cambios</button>
-    <a href="{{ url_for('clientes.lista') }}" class="btn-delete">Cancelar</a>
-</form>
+        <div class="form-field">
+            <label>Dirección</label>
+            <input type="text" name="direccion" value="{{ cliente.direccion }}" required>
+        </div>
+
+        <div class="form-field">
+            <label>Teléfono</label>
+            <input type="number" name="telefono" value="{{ cliente.telefono }}" required>
+        </div>
+
+        <div class="form-field">
+            <label>Email</label>
+            <input type="email" name="email" value="{{ cliente.email }}" required>
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ url_for('clientes.lista') }}" class="btn-cancelar">Cancelar</a>
+            <button type="submit" class="btn-green">Guardar</button>
+        </div>
+
+    </form>
+
+</div>
 
 {% endblock %}
