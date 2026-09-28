@@ -401,4 +401,63 @@ td button.btn-delete:hover {
     font-weight: bold;
 }
 
-/* Prueba aña */
+/* nuevo menu  */
+/* =========================
+   SIDEBAR NUEVO
+========================= */
+
+.app-container {
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 230px;
+    min-height: 100vh;
+    background: #0f0f2a;
+    padding: 20px;
+    border-right: 1px solid #2a2d47;
+}
+
+/* LOGO EN SIDEBAR */
+.sidebar .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.sidebar h2 {
+    color: #35DBE6;
+    font-size: 22px;
+}
+
+/* MENÚ VERTICAL */
+.menu-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-vertical a {
+    color: #9ca3af;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.menu-vertical a i {
+    margin-right: 8px;
+}
+
+.menu-vertical a:hover {
+    background: rgba(53, 219, 230, 0.1);
+    color: #35DBE6;
+}
+
+/* CONTENIDO A LA DERECHA */
+.main-content {
+    flex: 1;
+    padding: 25px;
+}
