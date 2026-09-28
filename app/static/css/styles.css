@@ -45,18 +45,24 @@ input:focus,
 select:focus {
     border: 1px solid #35DBE6;
 }
-
+/* cambiar color y forma del boton nuevo producto */
 .btn-green {
-    background: #35DBE6;
+    background: #3B82F6; 
     border: none;
-    padding: 6px 12px;
-    font-weight: 700;
+    padding: 12px 20px; 
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 25px;
-    display: flex;
+    border-radius: 6px; 
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: black;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-green:hover {
+    background: #2563EB; 
 }
 
 .select-container,
@@ -101,35 +107,40 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate; 
+    border-spacing: 0 12px; 
 }
 
+/* CABECERA */
 thead {
-    background: #35DBE6;
+    background: #1f2340;
+    border-radius: 8px;
 }
 
 thead th {
-    color: black;
-    font-weight: 900;
+    color: #9ca3af;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 12px;
+    letter-spacing: 1px;
 }
-
-td, th {
-    padding: 10px;
-    text-align: center;
-    vertical-align: middle;
-}
-
+/* FILAS */
 tbody tr {
     background: #1a1a3a;
-    border-bottom: 1px solid #333;
+    border-radius: 10px;
 }
 
-td button,
-td a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 2px;
+/* CELDAS */
+td {
+    padding: 15px;
+    text-align: left;
+}
+
+/* HOVER */
+tbody tr:hover {
+    background: #222252;
+    transition: 0.3s;
 }
 
 .btn-delete,
@@ -461,3 +472,4 @@ td button.btn-delete:hover {
     flex: 1;
     padding: 25px;
 }
+/* agrege esto para subir el botn agregar producto a el tituo */
