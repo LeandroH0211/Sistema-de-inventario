@@ -247,9 +247,11 @@ tbody tr:hover {
 }
 
 .logo-container h1 {
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 30px;
+    font-weight: 700;
+    color: #37B4FA;
     margin: 0;
-    font-size: 70px;
-    color: #37B4FA;  /* 👈 AQUÍ */
 }
 .nav-logo {
     height: 58px;
@@ -467,9 +469,14 @@ td button.btn-delete:hover {
     color: #35DBE6;
 }
 
-/* CONTENIDO A LA DERECHA */
 .main-content {
     flex: 1;
     padding: 40px;
 }
-/* agrege esto para subir el botn agregar producto a el tituo */
+.sidebar .logo-container h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #37B4FA;
+    margin: 0;
+}
