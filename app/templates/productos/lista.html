@@ -4,7 +4,7 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/productos.css') }}">
 {% endblock %}
-{% block page_title %}Productos{% endblock %}
+{% block page_title %}PRODUCTOS{% endblock %}
 
 {% block content %}
 
@@ -53,7 +53,7 @@
                 <a href="{{ url_for('productos.editar', id_producto=producto.id_producto) }}" class="btn-edit">
                     <i class="bi bi-pencil"></i> Editar
                 </a>
-                <a href="{{ url_for('productos.eliminar', id_producto=producto.id_producto) }}" class="btn-delete">
+                 <a href="{{ url_for('productos.eliminar', id_producto=producto.id_producto) }}" class="btn-delete">
                     <i class="bi bi-trash"></i> Eliminar
                 </a>
             </td>

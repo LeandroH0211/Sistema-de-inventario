@@ -173,3 +173,6 @@
     align-items: center;
     justify-content: center;
 }
+.historial-ventas .filters .date-container input {
+    padding: 0 10px; /* 👈 más natural */
+}

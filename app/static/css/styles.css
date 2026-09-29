@@ -248,9 +248,9 @@ tbody tr:hover {
 
 .logo-container h1 {
     margin: 0;
-    font-size: 52px;
+    font-size: 70px;
+    color: #37B4FA;  /* 👈 AQUÍ */
 }
-
 .nav-logo {
     height: 58px;
     width: auto;
@@ -439,7 +439,7 @@ td button.btn-delete:hover {
 }
 
 .sidebar h2 {
-    color: #35DBE6;
+    color: #6EC4F5;
     font-size: 22px;
 }
 
@@ -470,6 +470,6 @@ td button.btn-delete:hover {
 /* CONTENIDO A LA DERECHA */
 .main-content {
     flex: 1;
-    padding: 25px;
+    padding: 40px;
 }
 /* agrege esto para subir el botn agregar producto a el tituo */
