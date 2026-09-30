@@ -45,18 +45,24 @@ input:focus,
 select:focus {
     border: 1px solid #35DBE6;
 }
-
+/* cambiar color y forma del boton nuevo producto */
 .btn-green {
-    background: #35DBE6;
+    background: #3B82F6; 
     border: none;
-    padding: 6px 12px;
-    font-weight: 700;
+    padding: 12px 20px; 
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 25px;
-    display: flex;
+    border-radius: 6px; 
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: black;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-green:hover {
+    background: #2563EB; 
 }
 
 .select-container,
@@ -101,35 +107,40 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate; 
+    border-spacing: 0 12px; 
 }
 
+/* CABECERA */
 thead {
-    background: #35DBE6;
+    background: #1f2340;
+    border-radius: 8px;
 }
 
 thead th {
-    color: black;
-    font-weight: 900;
+    color: #9ca3af;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 12px;
+    letter-spacing: 1px;
 }
-
-td, th {
-    padding: 10px;
-    text-align: center;
-    vertical-align: middle;
-}
-
+/* FILAS */
 tbody tr {
     background: #1a1a3a;
-    border-bottom: 1px solid #333;
+    border-radius: 10px;
 }
 
-td button,
-td a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 2px;
+/* CELDAS */
+td {
+    padding: 15px;
+    text-align: left;
+}
+
+/* HOVER */
+tbody tr:hover {
+    background: #222252;
+    transition: 0.3s;
 }
 
 .btn-delete,
@@ -236,10 +247,12 @@ td a {
 }
 
 .logo-container h1 {
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 30px;
+    font-weight: 700;
+    color: #37B4FA;
     margin: 0;
-    font-size: 52px;
 }
-
 .nav-logo {
     height: 58px;
     width: auto;
@@ -401,4 +414,69 @@ td button.btn-delete:hover {
     font-weight: bold;
 }
 
-/* Prueba aña */
+/* nuevo menu  */
+/* =========================
+   SIDEBAR NUEVO
+========================= */
+
+.app-container {
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 230px;
+    min-height: 100vh;
+    background: #0f0f2a;
+    padding: 20px;
+    border-right: 1px solid #2a2d47;
+}
+
+/* LOGO EN SIDEBAR */
+.sidebar .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.sidebar h2 {
+    color: #6EC4F5;
+    font-size: 22px;
+}
+
+/* MENÚ VERTICAL */
+.menu-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-vertical a {
+    color: #9ca3af;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.menu-vertical a i {
+    margin-right: 8px;
+}
+
+.menu-vertical a:hover {
+    background: rgba(53, 219, 230, 0.1);
+    color: #35DBE6;
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px;
+}
+.sidebar .logo-container h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #37B4FA;
+    margin: 0;
+}

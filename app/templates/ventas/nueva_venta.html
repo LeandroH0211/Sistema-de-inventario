@@ -11,7 +11,7 @@
 <form method="POST" action="{{ url_for('ventas.nueva_venta') }}">
     <div class="venta-grid">
 
-        <!-- CLIENTE -->
+        <!-- cliente -->
         <div class="form-group">
             <label>CLIENTE:</label>
 
@@ -27,17 +27,16 @@
             </div>
         </div>
 
-        <!-- FECHA -->
+        <!-- fecha -->
         <div class="form-group">
             <label>FECHA:</label>
 
             <div class="date-container">
                 <input type="date" name="fecha" value="2026-09-17" required>
-                <i class="bi bi-calendar-date calendario-icono"></i>
             </div>
         </div>
 
-        <!-- ESTADO -->
+        <!-- estado -->
         <div class="form-group">
             <label>ESTADO:</label>
             <div class="select-container">
@@ -55,7 +54,7 @@
 
     <br>
 
-    <!-- PRODUCTOS -->
+    <!-- productos -->
     <div class="card">
 
         <h3 class="section-title">PRODUCTOS</h3>
@@ -102,8 +101,8 @@
         <br>
 
         <button type="button" class="btn-green" onclick="agregarLinea()">
-            <i class="bi bi-plus-circle-fill"></i>
-            Agregar línea
+           <i class="bi bi-plus-lg"></i>
+            AGREGAR LINEA
         </button>
 
         <template id="linea-producto-template">
@@ -137,7 +136,7 @@
 
     <br>
 
-    <!-- RESUMEN -->
+    <!-- resumenn -->
     <div class="venta-footer">
 
         <div class="resumen">
@@ -146,11 +145,15 @@
             <label>SUBTOTAL DE VENTA</label>
             <input type="text" id="subtotal-venta" value="$0.00" readonly>
 
-            <label for="tipo_descuento">TIPO DE DESCUENTO</label>
-            <select id="tipo_descuento" name="tipo_descuento" onchange="actualizarTotales()">
-                <option value="porcentual">Porcentual</option>
-                <option value="fijo">Fijo</option>
-            </select>
+           <label for="tipo_descuento">TIPO DE DESCUENTO</label>
+
+<div class="select-container">
+    <select id="tipo_descuento" name="tipo_descuento" onchange="actualizarTotales()">
+        <option value="porcentual">Porcentual</option>
+        <option value="fijo">Fijo</option>
+    </select>
+    <i class="bi bi-caret-down-fill"></i>
+</div>
 
             <label>DESCUENTO</label>
             <input type="number" id="descuento" name="descuento" value="1" min="1" step="0.01" oninput="actualizarDescuento(this)">
@@ -158,8 +161,7 @@
             <label>TOTAL</label>
             <input type="text" id="total-venta" value="$0.00" readonly>
         </div>
-
-        <!-- BOTONES UBICADOS DIRECTAMENTE DEBAJO -->
+        
         <div class="acciones">
             <button type="button" class="btn-cancelar">CANCELAR</button>
             <button type="submit" class="btn-green btn-registrar">REGISTRAR VENTA</button>
