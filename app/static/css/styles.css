@@ -1,17 +1,76 @@
-
-/* =========================
-   BASE
-========================= */
-
+/* ==========================================
+   1. ESTILOS BASE Y MAQUETACIÓN GLOBAL
+   ========================================== */
 body {
     background: #131329;
     color: white;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
+    margin: 0;
 }
 
-/* =========================
-   MENU
-========================= */
+.app-container {
+    display: flex;
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px;
+}
+
+/* ==========================================
+   2. SIDEBAR Y NAVEGACIÓN
+   ========================================== */
+.sidebar {
+    width: 230px;
+    min-height: 100vh;
+    background: #0f0f2a;
+    padding: 20px;
+    border-right: 1px solid #2a2d47;
+}
+
+.sidebar .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.sidebar .logo-container h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #37B4FA;
+    margin: 0;
+}
+
+.nav-logo {
+    height: 58px;
+    width: auto;
+    object-fit: contain;
+}
+
+.menu-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-vertical a {
+    color: #9ca3af;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.menu-vertical a i {
+    margin-right: 8px;
+}
+
+.menu-vertical a:hover {
+    background: rgba(53, 219, 230, 0.1);
+    color: #35DBE6;
+}
 
 .menu {
     margin-top: 10px;
@@ -32,37 +91,32 @@ body {
     color: white;
 }
 
+/* ==========================================
+   3. CONTROLES DE FORMULARIO, INPUTS Y SELECTS
+   ========================================== */
 input,
-select {
+select,
+textarea {
     padding: 10px;
     background: #1c1c3c;
-    border: 1px solid #333;
+    border: 1px solid #2a2d47;
     color: white;
     outline: none;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
 }
 
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
     border: 1px solid #35DBE6;
 }
-/* cambiar color y forma del boton nuevo producto */
-.btn-green {
-    background: #3B82F6; 
-    border: none;
-    padding: 12px 20px; 
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 6px; 
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
-}
 
-.btn-green:hover {
-    background: #2563EB; 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 1;
+    display: block;
+    cursor: pointer;
 }
 
 .select-container,
@@ -74,7 +128,7 @@ select:focus {
 .select-container select {
     width: 100%;
     height: 42px;
-    padding: 10px 35px 10px 10px;
+    padding: 0 35px 0 12px;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -95,104 +149,73 @@ select:focus {
     font-size: 18px;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-    opacity: 1;
-    display: block;
-    cursor: pointer;
+/* ==========================================
+   4. ESTRUCTURA DE TARJETAS Y FORMULARIOS
+   ========================================== */
+.page-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* =========================
-   TABLAS
-========================= */
-
-table {
-    width: 100%;
-    border-collapse: separate; 
-    border-spacing: 0 12px; 
+.page-centered > * {
+    width: min(700px, 100%);
+    box-sizing: border-box;
 }
 
-/* CABECERA */
-thead {
-    background: #1f2340;
-    border-radius: 8px;
+.form-card {
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-thead th {
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-header h3 {
+    color: white;
+}
+
+.close-btn {
     color: #9ca3af;
-    font-weight: 600;
-    text-align: left;
-    padding: 12px 15px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-field label {
     font-size: 12px;
-    letter-spacing: 1px;
-}
-/* FILAS */
-tbody tr {
-    background: #1a1a3a;
-    border-radius: 10px;
+    color: #9ca3af;
 }
 
-/* CELDAS */
-td {
-    padding: 15px;
-    text-align: left;
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
 
-/* HOVER */
-tbody tr:hover {
-    background: #222252;
-    transition: 0.3s;
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-.btn-delete,
-.btn-edit,
-.btn-detail {
-    background: transparent;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 13px;
-}
-
-.btn-delete {
-    border: 1px solid red;
-    color: red;
-}
-
-.btn-delete:hover {
-    background: red;
-    color: white;
-}
-
-.btn-edit {
-    border: 1px solid yellow;
-    color: yellow;
-    margin-right: 5px;
-}
-
-.btn-edit:hover {
-    background: yellow;
-    color: black;
-}
-
-.btn-detail {
-    border: 1px solid white;
-    color: white;
-}
-
-.btn-detail:hover {
-    background: white;
-    color: #35DBE6;
-}
-
-.btn-cancelar {
-    background: gray;
-    border: none;
-    padding: 8px 15px;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
+/* ==========================================
+   5. BARRA SUPERIOR Y FILTROS (TOP-BAR)
+   ========================================== */
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -215,8 +238,6 @@ tbody tr:hover {
     min-width: 200px;
     height: 42px;
     padding: 0 15px;
-    box-sizing: border-box;
-    font-size: 14px;
 }
 
 .filters .select-container {
@@ -225,10 +246,45 @@ tbody tr:hover {
     height: 42px;
 }
 
-.filters .select-container select {
-    padding: 0 35px 0 12px;
-    box-sizing: border-box;
-    font-size: 14px;
+.filters .date-container {
+    width: 160px;
+    flex-shrink: 0;
+    height: 42px;
+}
+
+.filters .date-arrow {
+    color: #35DBE6;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ==========================================
+   6. BOTONES GENERALES
+   ========================================== */
+.btn-green {
+    background: #3B82F6; 
+    border: none;
+    padding: 12px 20px; 
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-green:hover {
+    background: #2563EB; 
+}
+
+.btn-green i {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .top-bar .btn-green {
@@ -237,28 +293,74 @@ tbody tr:hover {
     text-transform: uppercase;
     white-space: nowrap;
     flex-shrink: 0;
+}
+
+.btn-cancelar {
+    background: gray;
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
     text-decoration: none;
 }
 
-.logo-container {
+.action-buttons {
     display: flex;
+    gap: 8px;
     align-items: center;
-    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.logo-container h1 {
-    font-family: 'Orbitron', sans-serif; 
-    font-size: 30px;
-    font-weight: 700;
-    color: #37B4FA;
-    margin: 0;
-}
-.nav-logo {
-    height: 58px;
-    width: auto;
-    object-fit: contain;
+/* Botones de acción genéricos */
+.btn-delete,
+.btn-edit,
+.btn-detail {
+    background: transparent;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s;
 }
 
+.btn-delete {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid red;
+    color: #ef4444;
+}
+
+.btn-delete:hover {
+    background: red;
+    color: white;
+}
+
+.btn-edit {
+    border: 1px solid #3B82F6;
+    color: #3B82F6;
+    margin-right: 5px;
+}
+
+.btn-edit:hover {
+    background: #3B82F6;
+    color: white;
+}
+
+.btn-detail {
+    border: 1px solid white;
+    color: white;
+}
+
+.btn-detail:hover {
+    background: white;
+    color: #131329;
+}
+
+/* Botones redondeados para celdas <td> */
 td a.btn-edit,
 td a.btn-delete,
 td button.btn-delete {
@@ -292,58 +394,44 @@ td button.btn-delete:hover {
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
 }
 
-.btn-green i {
-    font-size: 20px;
-    font-weight: bold;
-}
-.btn-edit {
-    background: transparent;
-    border: 1px solid yellow;
-    color: yellow;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 13px;
-    margin-right: 5px;
+/* ==========================================
+   7. TABLAS BASE Y ESTADOS
+   ========================================== */
+table {
+    width: 100%;
+    border-collapse: separate; 
+    border-spacing: 0 12px; 
 }
 
-.btn-edit:hover {
-    background:yellow;
-    color: black;
-}
-.btn-delete {
-    background: transparent;
-    border: 1px solid red;
-    color: red;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 13px;
+thead {
+    background: #1f2340;
+    border-radius: 8px;
 }
 
-.btn-delete:hover {
-    background: red;
-    color: white;
-}
-.btn-detail {
-    background: transparent;
-    border: 1px solid white;
-    color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 13px;
+thead th {
+    color: #9ca3af;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 12px;
+    letter-spacing: 1px;
 }
 
-.btn-detail:hover {
-    background: white;
-    color: #35DBE6;
+tbody tr {
+    background: #1a1a3a;
+    border-radius: 10px;
 }
-/* =========================
-   HISTORIAL DE VENTAS
-========================= */
 
-/* Estados con colores */
+td {
+    padding: 15px;
+    text-align: left;
+}
+
+tbody tr:hover {
+    background: #222252;
+    transition: 0.3s;
+}
+
 .estado-completada {
     color: #35DBE6;
     font-weight: 700;
@@ -357,126 +445,4 @@ td button.btn-delete:hover {
 .estado-cancelada {
     color: red;
     font-weight: 700;
-}
-
-/* Filtros de fecha dentro del top-bar */
-.filters .date-container {
-    width: 160px;
-    flex-shrink: 0;
-    height: 42px;
-}
-
-.filters .date-container input {
-    width: 100%;
-    height: 42px;
-    padding: 0 35px 0 12px;
-    box-sizing: border-box;
-    font-size: 14px;
-    background: #1c1c3c;
-    border: 1px solid #333;
-    border-radius: 6px;
-    color: white;
-}
-
-/* Flecha entre las dos fechas */
-.filters .date-arrow {
-    color: #35DBE6;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-/* =========================
-   LOGO Y NAVBAR HEAD
-========================= */
-
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo-container h1 {
-    margin: 0;
-    font-size: 52px;
-}
-
-.nav-logo {
-    height: 58px;
-    width: auto;
-    object-fit: contain;
-
-}
-
-.btn-green i {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-/* nuevo menu  */
-/* =========================
-   SIDEBAR NUEVO
-========================= */
-
-.app-container {
-    display: flex;
-}
-
-/* SIDEBAR */
-.sidebar {
-    width: 230px;
-    min-height: 100vh;
-    background: #0f0f2a;
-    padding: 20px;
-    border-right: 1px solid #2a2d47;
-}
-
-/* LOGO EN SIDEBAR */
-.sidebar .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 30px;
-}
-
-.sidebar h2 {
-    color: #6EC4F5;
-    font-size: 22px;
-}
-
-/* MENÚ VERTICAL */
-.menu-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.menu-vertical a {
-    color: #9ca3af;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 8px;
-    transition: 0.2s;
-}
-
-.menu-vertical a i {
-    margin-right: 8px;
-}
-
-.menu-vertical a:hover {
-    background: rgba(53, 219, 230, 0.1);
-    color: #35DBE6;
-}
-
-.main-content {
-    flex: 1;
-    padding: 40px;
-}
-.sidebar .logo-container h2 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: #37B4FA;
-    margin: 0;
 }
