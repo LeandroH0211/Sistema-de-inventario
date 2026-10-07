@@ -81,32 +81,6 @@ def _leer_formulario():
         "stock": stock,
         "stock_minimo": stock_minimo,
     }
-def listar():
-    categoria = request.args.get("categoria", "").strip()
-    busqueda = request.args.get("q", "").strip()
-
-    query = Producto.query
-
-    if categoria:
-        query = query.filter(Producto.categoria == categoria)
-
-    if busqueda:
-        query = query.filter(Producto.nombre.ilike(f"%{busqueda}%"))
-
-    productos = query.all()
-
-    categorias = [c[0] for c in
-                  Producto.query.with_entities(Producto.categoria).distinct().all()
-                  if c[0]]
-
-    return render_template(
-        "productos.html",
-        productos=productos,
-        categorias=categorias,
-        categoria_seleccionada=categoria,
-        busqueda=busqueda,
-    )
-
 def _redirigir_a_lista(producto):
     if producto.stock < producto.stock_minimo:
         return redirect(url_for("productos.lista", advertencia=producto.id_producto))
@@ -119,8 +93,19 @@ def lista():
     advertencia = None
     productos = []
 
+    categoria = request.args.get("categoria", "").strip()
+    busqueda = request.args.get("q", "").strip()
+
     try:
-        productos = Producto.query.all()
+        query = Producto.query
+
+        if categoria:
+            query = query.filter(Producto.categoria.ilike(categoria))
+
+        if busqueda:
+            query = query.filter(Producto.nombre.ilike(f"%{busqueda}%"))
+
+        productos = query.all()
 
         id_advertencia = request.args.get("advertencia", type=int)
         if id_advertencia:
@@ -139,6 +124,8 @@ def lista():
         productos=productos,
         error=error,
         advertencia=advertencia,
+        categoria_seleccionada=categoria,
+        busqueda=busqueda,
     )
 
 
