@@ -10,9 +10,16 @@
 
 <div class="top-bar">
 
-    <div class="filters">
-        <input type="text" placeholder="Buscar clientes">
-    </div>
+    <form method="get" action="{{ url_for('clientes.lista') }}" class="filters">
+        <input type="text" name="q" placeholder="Buscar clientes"
+               value="{{ busqueda or '' }}">
+
+        {% if busqueda %}
+        <a href="{{ url_for('clientes.lista') }}" class="btn-clear">
+            <i class="bi bi-x-lg"></i> Borrar
+        </a>
+        {% endif %}
+    </form>
 
     <a href="{{ url_for('clientes.nuevo') }}" class="btn-green">
         <i class="bi bi-plus-lg"></i>
@@ -39,23 +46,32 @@
             <td>{{ cliente.direccion }}</td>
             <td>{{ cliente.telefono }}</td>
             <td>{{ cliente.email }}</td>
-           <td>
-    <div class="action-buttons">
+            <td>
+                <div class="action-buttons">
 
-        <a href="{{ url_for('clientes.editar', id_cliente=cliente.id_cliente) }}" class="btn-edit">
-            <i class="bi bi-pencil"></i> Editar
-        </a>
+                    <a href="{{ url_for('clientes.editar', id_cliente=cliente.id_cliente) }}" class="btn-edit">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
 
-        <a href="{{ url_for('clientes.eliminar', id_cliente=cliente.id_cliente) }}" class="btn-delete">
-            <i class="bi bi-trash"></i> Eliminar
-        </a>
+                    <form method="post"
+                          action="{{ url_for('clientes.eliminar', id_cliente=cliente.id_cliente) }}"
+                          onsubmit="return confirm('Si borras el cliente borras todas las ventas asociadas a él. ¿Estás seguro?')"
+                          style="display:inline;">
+                        <button type="submit" class="btn-delete">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </form>
 
-        <a href="#" class="btn-detail">
-            <i class="bi bi-eye"></i> Detalle
-        </a>
+                    <a href="#" class="btn-detail">
+                        <i class="bi bi-eye"></i> Detalle
+                    </a>
 
-    </div>
-</td>
+                </div>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5">No se encontraron clientes.</td>
         </tr>
         {% endfor %}
     </tbody>

@@ -103,10 +103,43 @@ def nueva_venta():
         productos=productos
     )
 
-@ventas.route('/ventas/historial')
+@ventas.route('/ventas/historial', methods=['GET', 'POST'])
 def historial_ventas():
-    ventas_registradas = Venta.query.order_by(Venta.fecha.desc(), Venta.id_venta.desc()).all()
+    busqueda = request.args.get('q', '').strip()
+    estado = request.args.get('estado', '').strip()
+    desde = request.args.get('desde', '').strip()
+    hasta = request.args.get('hasta', '').strip()
+
+    query = Venta.query
+
+    
+    if busqueda:
+        if busqueda.isdigit():
+            query = query.filter(Venta.id_venta == int(busqueda))
+        else:
+            query = query.filter(db.false())  # texto no numérico: sin resultados
+
+    if estado:
+        query = query.filter(Venta.estado == estado)
+
+    
+    try:
+        if desde:
+            query = query.filter(Venta.fecha >= date.fromisoformat(desde))
+        if hasta:
+            query = query.filter(Venta.fecha <= date.fromisoformat(hasta))
+    except ValueError:
+        pass 
+
+    ventas_registradas = query.order_by(
+        Venta.fecha.desc(), Venta.id_venta.desc()
+    ).all()
+
     return render_template(
         'ventas/historial_ventas.html',
-        ventas=ventas_registradas
+        ventas=ventas_registradas,
+        busqueda=busqueda,
+        estado_seleccionado=estado,
+        desde=desde,
+        hasta=hasta,
     )
