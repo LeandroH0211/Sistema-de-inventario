@@ -54,7 +54,7 @@ def _leer_formulario():
     except ValueError:
         errores.append("El stock debe ser un número entero.")
     else:
-        if stock < 0:
+        if stock <= 0:
             errores.append("El stock no puede ser negativo.")
         elif stock > MAX_STOCK:
             errores.append("El stock es demasiado alto.")
