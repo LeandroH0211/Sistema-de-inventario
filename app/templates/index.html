@@ -15,28 +15,25 @@
     <a href="{{ url_for('productos.lista') }}" class="home-card">
         <i class="bi bi-box-seam"></i>
         <span>Productos</span>
-        <!-- DATO FALSOOO , PONER TOTAL DE PRODUCTOS -->
-        <p class="number">120</p>
+        <p class="number">{{total_productos}}</p>
     </a>
 
     <a href="{{ url_for('clientes.lista') }}" class="home-card">
         <i class="bi bi-people-fill"></i>
         <span>Clientes</span>
-        <!-- DATO FALSOOO , PONER TOTAL DE CLIENTESSS -->
-        <p class="number">45</p>
+        <p class="number">{{total_clientes}}</p>
     </a>
 
     <a href="{{ url_for('ventas.nueva_venta') }}" class="home-card">
         <i class="bi bi-plus-circle"></i>
         <span>Crear Venta</span>
-        <!-- DATO FALSOOO , PONER TOTAL DE VENTAS -->
-        <p class="number">30</p>
+        <p class="sub">Creacion de ventas</p>
     </a>
 
     <a href="{{ url_for('ventas.historial_ventas') }}" class="home-card">
         <i class="bi bi-list"></i>
         <span>Historial Ventas</span>
-        <p class="sub">Ver transacciones</p>
+        <p class="number">{{total_ventas}}</p>
     </a>
 </div>
 

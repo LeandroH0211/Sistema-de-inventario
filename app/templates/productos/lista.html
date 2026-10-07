@@ -8,25 +8,42 @@
 
 {% block content %}
 
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+
+{% if advertencia %}
+<div class="alert-warning">{{ advertencia }}</div>
+{% endif %}
 <div class="top-bar">
-    <div class="filters">
-        <input type="text" placeholder="Buscar productos">
+    <form method="get" action="{{ url_for('productos.lista') }}" class="filters">
+        <input type="text" name="q" placeholder="Buscar productos"
+               value="{{ busqueda or '' }}">
 
         <div class="select-container">
-            <select>
-                <option>Todas las categorías</option>
-                <option>Electrónicos</option>
-                <option>Muebles</option>
+            <select name="categoria" onchange="this.form.submit()">
+                <option value="">Todas las categorías</option>
+                <option value="Electrónica" {% if categoria_seleccionada == 'Electrónica' %}selected{% endif %}>
+                    Electrónica
+                </option>
+                <option value="Muebles" {% if categoria_seleccionada == 'Muebles' %}selected{% endif %}>
+                    Muebles
+                </option>
             </select>
             <i class="bi bi-caret-down-fill"></i>
         </div>
-    </div>
+
+        {% if busqueda or categoria_seleccionada %}
+        <a href="{{ url_for('productos.lista') }}" class="btn-delete">
+            <i class="bi bi-x-lg"></i> Borrar
+        </a>
+        {% endif %}
+    </form>
 
     <a href="{{ url_for('productos.nuevo') }}" class="btn-green">
         <i class="bi bi-plus-lg"></i>
         NUEVO PRODUCTO
     </a>
-
 </div>
 
 <table>
@@ -53,7 +70,9 @@
                 <a href="{{ url_for('productos.editar', id_producto=producto.id_producto) }}" class="btn-edit">
                     <i class="bi bi-pencil"></i> Editar
                 </a>
-                 <a href="{{ url_for('productos.eliminar', id_producto=producto.id_producto) }}" class="btn-delete">
+                <a href="{{ url_for('productos.eliminar', id_producto=producto.id_producto) }}"
+                   class="btn-delete"
+                   onclick="return confirm('¿Eliminar este producto?')">
                     <i class="bi bi-trash"></i> Eliminar
                 </a>
             </td>

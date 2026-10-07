@@ -9,7 +9,10 @@ class Cliente(db.Model):
     telefono = db.Column(db.String(20))
     email = db.Column(db.String(100))
 
-    ventas = db.relationship('Venta', backref='cliente', lazy=True)
+    ventas = db.relationship(
+        'Venta', backref='cliente', lazy=True,
+        cascade='all, delete-orphan'
+    )
 
 class Producto(db.Model):
     __tablename__ = 'producto'
@@ -21,16 +24,20 @@ class Producto(db.Model):
     precio = db.Column(db.Numeric(12, 2), nullable=False)
     stock = db.Column(db.Integer, default=0)
     stock_minimo = db.Column(db.Integer, default=0)
+
 class Venta(db.Model):
     __tablename__ = 'venta'
 
     id_venta = db.Column(db.Integer, primary_key=True)
     id_cliente = db.Column(db.Integer, db.ForeignKey('cliente.id_cliente'), nullable=False)
     fecha = db.Column(db.Date, nullable=False)
-    estado = db.Column(db.String(20), default='Pendiente')  # Pendiente, Completada, Cancelada
+    estado = db.Column(db.String(20), default='Pendiente')
     total = db.Column(db.Numeric(12, 2), nullable=False)
 
-    detalles = db.relationship('DetalleVenta', backref='venta', lazy=True)
+    detalles = db.relationship(
+        'DetalleVenta', backref='venta', lazy=True,
+        cascade='all, delete-orphan'
+    )
 
 class DetalleVenta(db.Model):
     __tablename__ = 'detalle_venta'
@@ -40,6 +47,6 @@ class DetalleVenta(db.Model):
     id_producto = db.Column(db.Integer, db.ForeignKey('producto.id_producto'), nullable=False)
     cantidad = db.Column(db.Integer, nullable=False)
     precio_unitario = db.Column(db.Numeric(12, 2), nullable=False)
-    subtotal = db.Column(db.Numeric(12, 2), nullable=False)  # cantidad × precio_unitario
+    subtotal = db.Column(db.Numeric(12, 2), nullable=False)
 
     producto = db.relationship('Producto', backref='detalles_venta')
