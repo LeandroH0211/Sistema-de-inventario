@@ -8,6 +8,14 @@
 
 {% block content %}
 
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+
+{% if advertencia %}
+<div class="alert-warning">{{ advertencia }}</div>
+{% endif %}
+
 <div class="top-bar">
     <div class="filters">
         <input type="text" placeholder="Buscar productos">
@@ -15,7 +23,7 @@
         <div class="select-container">
             <select>
                 <option>Todas las categorías</option>
-                <option>Electrónicos</option>
+                <option>Electrónica</option>
                 <option>Muebles</option>
             </select>
             <i class="bi bi-caret-down-fill"></i>
@@ -53,7 +61,9 @@
                 <a href="{{ url_for('productos.editar', id_producto=producto.id_producto) }}" class="btn-edit">
                     <i class="bi bi-pencil"></i> Editar
                 </a>
-                 <a href="{{ url_for('productos.eliminar', id_producto=producto.id_producto) }}" class="btn-delete">
+                <a href="{{ url_for('productos.eliminar', id_producto=producto.id_producto) }}"
+                   class="btn-delete"
+                   onclick="return confirm('¿Eliminar este producto?')">
                     <i class="bi bi-trash"></i> Eliminar
                 </a>
             </td>
