@@ -55,7 +55,7 @@ def _leer_formulario():
         errores.append("El stock debe ser un número entero.")
     else:
         if stock <= 0:
-            errores.append("El stock no puede ser negativo.")
+            errores.append("El stock no puede ser negativo o igual a 0")
         elif stock > MAX_STOCK:
             errores.append("El stock es demasiado alto.")
 
@@ -81,7 +81,31 @@ def _leer_formulario():
         "stock": stock,
         "stock_minimo": stock_minimo,
     }
+def listar():
+    categoria = request.args.get("categoria", "").strip()
+    busqueda = request.args.get("q", "").strip()
 
+    query = Producto.query
+
+    if categoria:
+        query = query.filter(Producto.categoria == categoria)
+
+    if busqueda:
+        query = query.filter(Producto.nombre.ilike(f"%{busqueda}%"))
+
+    productos = query.all()
+
+    categorias = [c[0] for c in
+                  Producto.query.with_entities(Producto.categoria).distinct().all()
+                  if c[0]]
+
+    return render_template(
+        "productos.html",
+        productos=productos,
+        categorias=categorias,
+        categoria_seleccionada=categoria,
+        busqueda=busqueda,
+    )
 
 def _redirigir_a_lista(producto):
     if producto.stock < producto.stock_minimo:
