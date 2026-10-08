@@ -8,6 +8,10 @@
 
 {% block content %}
 
+{% if error %}
+<div class="alert-error">{{ error }}</div>
+{% endif %}
+
 <form method="POST" action="{{ url_for('ventas.nueva_venta') }}">
     <div class="venta-grid">
 
@@ -19,7 +23,10 @@
                 <select name="id_cliente" id="id_cliente" required>
                     <option value="">Seleccionar cliente</option>
                     {% for cliente in clientes %}
-                        <option value="{{ cliente.id_cliente }}">{{ cliente.nombre }}</option>
+                        <option value="{{ cliente.id_cliente }}"
+                            {% if form.get('id_cliente') == cliente.id_cliente|string %}selected{% endif %}>
+                            {{ cliente.nombre }}
+                        </option>
                     {% endfor %}
                 </select>
 
@@ -32,7 +39,7 @@
             <label>FECHA:</label>
 
             <div class="date-container">
-                <input type="date" name="fecha" value="2026-09-17" required>
+                <input type="date" name="fecha" value="{{ form.get('fecha') or hoy }}" required>
             </div>
         </div>
 
@@ -41,9 +48,9 @@
             <label>ESTADO:</label>
             <div class="select-container">
                 <select name="estado">
-                    <option>Pendiente</option>
-                    <option>Completada</option>
-                    <option>Cancelada</option>
+                    {% for e in ['Pendiente', 'Completada', 'Cancelada'] %}
+                        <option {% if form.get('estado') == e %}selected{% endif %}>{{ e }}</option>
+                    {% endfor %}
                 </select>
 
                 <i class="bi bi-caret-down-fill"></i>
@@ -72,12 +79,17 @@
 
             <tbody id="productos-body">
                 <tr>
-                <td>
+                    <td>
                         <div class="select-container">
                             <select name="id_producto" onchange="actualizarLinea(this)">
                                 <option value="">Seleccionar Producto</option>
                                 {% for producto in productos %}
-                                    <option value="{{ producto.id_producto }}" data-precio="{{ producto.precio }}" data-stock="{{ producto.stock }}">{{ producto.nombre }}</option>
+                                    <option value="{{ producto.id_producto }}"
+                                            data-precio="{{ producto.precio }}"
+                                            data-stock="{{ producto.stock or 0 }}"
+                                            {% if not producto.stock %}disabled{% endif %}>
+                                        {{ producto.nombre }} ({{ 'agotado' if not producto.stock else 'stock: ' ~ producto.stock }})
+                                    </option>
                                 {% endfor %}
                             </select>
 
@@ -101,7 +113,7 @@
         <br>
 
         <button type="button" class="btn-green" onclick="agregarLinea()">
-           <i class="bi bi-plus-lg"></i>
+            <i class="bi bi-plus-lg"></i>
             AGREGAR LINEA
         </button>
 
@@ -112,7 +124,12 @@
                         <select name="id_producto" onchange="actualizarLinea(this)">
                             <option value="">Seleccionar Producto</option>
                             {% for producto in productos %}
-                                <option value="{{ producto.id_producto }}" data-precio="{{ producto.precio }}" data-stock="{{ producto.stock }}">{{ producto.nombre }}</option>
+                                <option value="{{ producto.id_producto }}"
+                                        data-precio="{{ producto.precio }}"
+                                        data-stock="{{ producto.stock or 0 }}"
+                                        {% if not producto.stock %}disabled{% endif %}>
+                                    {{ producto.nombre }} ({{ 'agotado' if not producto.stock else 'stock: ' ~ producto.stock }})
+                                </option>
                             {% endfor %}
                         </select>
 
@@ -136,7 +153,6 @@
 
     <br>
 
-    <!-- resumenn -->
     <div class="venta-footer">
 
         <div class="resumen">
@@ -145,23 +161,25 @@
             <label>SUBTOTAL DE VENTA</label>
             <input type="text" id="subtotal-venta" value="$0.00" readonly>
 
-           <label for="tipo_descuento">TIPO DE DESCUENTO</label>
+            <label for="tipo_descuento">TIPO DE DESCUENTO</label>
 
-<div class="select-container">
-    <select id="tipo_descuento" name="tipo_descuento" onchange="actualizarTotales()">
-        <option value="porcentual">Porcentual</option>
-        <option value="fijo">Fijo</option>
-    </select>
-    <i class="bi bi-caret-down-fill"></i>
-</div>
+            <div class="select-container">
+                <select id="tipo_descuento" name="tipo_descuento" onchange="actualizarTotales()">
+                    <option value="porcentual" {% if form.get('tipo_descuento') == 'porcentual' %}selected{% endif %}>Porcentual</option>
+                    <option value="fijo" {% if form.get('tipo_descuento') == 'fijo' %}selected{% endif %}>Fijo</option>
+                </select>
+                <i class="bi bi-caret-down-fill"></i>
+            </div>
 
             <label>DESCUENTO</label>
-            <input type="number" id="descuento" name="descuento" value="1" min="1" step="0.01" oninput="actualizarDescuento(this)">
+            <input type="number" id="descuento" name="descuento"
+                   value="{{ form.get('descuento') or 1 }}"
+                   min="1" step="0.01" oninput="actualizarDescuento(this)">
 
             <label>TOTAL</label>
             <input type="text" id="total-venta" value="$0.00" readonly>
         </div>
-        
+
         <div class="acciones">
             <button type="button" class="btn-cancelar">CANCELAR</button>
             <button type="submit" class="btn-green btn-registrar">REGISTRAR VENTA</button>
@@ -172,6 +190,9 @@
 </form>
 
 <script>
+    const MENSAJE_STOCK = 'No hay más stock disponible para dicho producto';
+    const LINEAS_PREVIAS = {{ lineas_previas|tojson }}; //si alguien ve esto es pq vscode lo marca como error pero no es
+
     function eliminarLinea(button) {
         button.closest('tr').remove();
         actualizarTotales();
@@ -183,25 +204,50 @@
         productosBody.appendChild(template.content.cloneNode(true));
     }
 
-    document.getElementById('productos-body').addEventListener('input', function(evento) {
-        if (evento.target.matches('input[name="cantidad"]')) {
-            actualizarLinea(evento.target);
-        }
-    });
-
-    function actualizarLinea(elemento) {
+    function actualizarLinea(elemento, silencioso = false) {
         const fila = elemento.closest('tr');
         const producto = fila.querySelector('select[name="id_producto"]');
         const cantidad = fila.querySelector('input[name="cantidad"]');
         const precio = fila.querySelector('input[name="precio"]');
         const subtotal = fila.querySelector('.subtotal-linea');
+
+        // --- Control de stock ---
+        if (producto.value) {
+            const stock = parseInt(producto.options[producto.selectedIndex].dataset.stock, 10) || 0;
+
+            
+            let enOtrasLineas = 0;
+            document.querySelectorAll('#productos-body tr').forEach((otra) => {
+                if (otra === fila) return;
+                const otroProducto = otra.querySelector('select[name="id_producto"]');
+                if (otroProducto.value === producto.value) {
+                    enOtrasLineas += parseInt(otra.querySelector('input[name="cantidad"]').value, 10) || 0;
+                }
+            });
+
+            const disponible = Math.max(0, stock - enOtrasLineas);
+            cantidad.max = disponible;
+
+            if ((parseInt(cantidad.value, 10) || 0) > disponible) {
+                if (!silencioso) alert(MENSAJE_STOCK);
+                if (disponible > 0) {
+                    cantidad.value = disponible;      
+                } else {
+                    producto.value = '';              
+                    cantidad.value = 1;
+                }
+            }
+        } else {
+            cantidad.removeAttribute('max');
+        }
+
+       
         const opcion = producto.options[producto.selectedIndex];
         const precioProducto = parseFloat(opcion.dataset.precio) || 0;
         const cantidadProducto = parseInt(cantidad.value, 10) || 0;
-        const subtotalLinea = precioProducto * cantidadProducto;
 
         precio.value = precioProducto.toFixed(2);
-        subtotal.textContent = formatearMoneda(subtotalLinea);
+        subtotal.textContent = formatearMoneda(precioProducto * cantidadProducto);
         actualizarTotales();
     }
 
@@ -231,7 +277,25 @@
     function formatearMoneda(valor) {
         return `$${valor.toFixed(2)}`;
     }
-</script>
 
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!LINEAS_PREVIAS.length) {
+            actualizarTotales();
+            return;
+        }
+
+        const body = document.getElementById('productos-body');
+        body.innerHTML = '';
+
+        LINEAS_PREVIAS.forEach(([idProducto, cantidad]) => {
+            agregarLinea();
+            const fila = body.lastElementChild;
+            const select = fila.querySelector('select[name="id_producto"]');
+            select.value = idProducto;
+            fila.querySelector('input[name="cantidad"]').value = cantidad;
+            actualizarLinea(select, true);   
+        });
+    });
+</script>
 
 {% endblock %}

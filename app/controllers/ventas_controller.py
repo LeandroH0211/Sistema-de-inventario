@@ -8,8 +8,21 @@ from app.models import Cliente, Producto, Venta, DetalleVenta
 
 ventas = Blueprint('ventas', __name__)
 
+
 @ventas.route('/ventas/nueva', methods=['GET', 'POST'])
 def nueva_venta():
+    def mostrar_formulario(error=None, lineas=None):
+        pagina = render_template(
+            'ventas/nueva_venta.html',
+            clientes=Cliente.query.order_by(Cliente.nombre).all(),
+            productos=Producto.query.order_by(Producto.nombre).all(),
+            error=error,
+            form=request.form,
+            lineas_previas=lineas or [],
+            hoy=date.today().isoformat(),
+        )
+        return pagina, (400 if error else 200)
+
     if request.method == 'POST':
         id_cliente = request.form.get('id_cliente', type=int)
         fecha = request.form.get('fecha')
@@ -20,11 +33,11 @@ def nueva_venta():
             fecha_venta = date.fromisoformat(fecha)
             valor_descuento = Decimal(request.form.get('descuento', '1'))
         except (TypeError, ValueError, InvalidOperation):
-            return 'Los datos de la venta no son válidos.', 400
+            return mostrar_formulario('Los datos de la venta no son válidos.')
 
-        cliente = db.session.get(Cliente, id_cliente)
+        cliente = db.session.get(Cliente, id_cliente) if id_cliente else None
         if cliente is None or valor_descuento < 1:
-            return 'El cliente o el descuento no son válidos.', 400
+            return mostrar_formulario('El cliente o el descuento no son válidos.')
 
         ids_producto = request.form.getlist('id_producto')
         cantidades = request.form.getlist('cantidad')
@@ -39,17 +52,19 @@ def nueva_venta():
                 id_producto = int(id_producto)
                 cantidad = int(cantidad)
                 if cantidad < 1:
-                    return 'La cantidad debe ser mayor o igual a 1.', 400
+                    return mostrar_formulario(
+                        'La cantidad debe ser mayor o igual a 1.', lineas
+                    )
 
                 cantidades_por_producto[id_producto] = (
                     cantidades_por_producto.get(id_producto, 0) + cantidad
                 )
                 lineas.append((id_producto, cantidad))
         except ValueError:
-            return 'Los productos o cantidades no son válidos.', 400
+            return mostrar_formulario('Los productos o cantidades no son válidos.')
 
         if not lineas:
-            return 'Debe agregar al menos un producto.', 400
+            return mostrar_formulario('Debe agregar al menos un producto.')
 
         productos = {
             producto.id_producto: producto
@@ -61,8 +76,16 @@ def nueva_venta():
         subtotal = Decimal('0')
         for id_producto, cantidad_total in cantidades_por_producto.items():
             producto = productos.get(id_producto)
-            if producto is None or cantidad_total > producto.stock:
-                return 'La cantidad solicitada supera el stock disponible.', 400
+            if producto is None:
+                db.session.rollback()
+                return mostrar_formulario('El producto seleccionado no existe.', lineas)
+            if cantidad_total > (producto.stock or 0):
+                db.session.rollback()  
+                return mostrar_formulario(
+                    f'No hay más stock disponible para «{producto.nombre}» '
+                    f'(disponible: {producto.stock or 0}).',
+                    lineas,
+                )
             subtotal += producto.precio * cantidad_total
 
         descuento = (
@@ -95,15 +118,10 @@ def nueva_venta():
         db.session.commit()
         return redirect(url_for('ventas.historial_ventas'))
 
-    clientes = Cliente.query.order_by(Cliente.nombre).all()
-    productos = Producto.query.order_by(Producto.nombre).all()
-    return render_template(
-        'ventas/nueva_venta.html',
-        clientes=clientes,
-        productos=productos
-    )
+    return mostrar_formulario()
 
-@ventas.route('/ventas/historial', methods=['GET', 'POST'])
+
+@ventas.route('/ventas/historial')
 def historial_ventas():
     busqueda = request.args.get('q', '').strip()
     estado = request.args.get('estado', '').strip()
@@ -117,19 +135,19 @@ def historial_ventas():
         if busqueda.isdigit():
             query = query.filter(Venta.id_venta == int(busqueda))
         else:
-            query = query.filter(db.false())  # texto no numérico: sin resultados
+            query = query.filter(db.false())  
 
     if estado:
         query = query.filter(Venta.estado == estado)
 
-    
+   
     try:
         if desde:
             query = query.filter(Venta.fecha >= date.fromisoformat(desde))
         if hasta:
             query = query.filter(Venta.fecha <= date.fromisoformat(hasta))
     except ValueError:
-        pass 
+        pass  
 
     ventas_registradas = query.order_by(
         Venta.fecha.desc(), Venta.id_venta.desc()
