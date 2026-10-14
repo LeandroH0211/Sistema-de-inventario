@@ -41,6 +41,7 @@ body {
     font-weight: 700;
     color: #37B4FA;
     margin: 0;
+    white-space: nowrap;
 }
 
 .nav-logo {
@@ -445,4 +446,26 @@ tbody tr:hover {
 .estado-cancelada {
     color: red;
     font-weight: 700;
+}
+/* ==========================================
+   ESTILOS PARA EL LOGO EN EL HEADER (LAYOUT2)
+   ========================================== */
+header.navbar {
+    background: #0f0f2a;
+    padding: 15px 25px;
+    border-bottom: 1px solid #2a2d47;
+}
+
+header.navbar .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+header.navbar .logo-container h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #37B4FA;
+    margin: 0;
 }
