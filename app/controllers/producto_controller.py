@@ -1,3 +1,8 @@
+"""Controlador de productos: define el Blueprint 'productos' con las rutas para listar
+(con filtros por categoría y nombre), crear, editar y eliminar productos. Valida los datos
+del formulario (nombre, descripción, categoría, precio y stock) y avisa si el stock queda
+por debajo del mínimo."""
+
 import math
 import re
 
