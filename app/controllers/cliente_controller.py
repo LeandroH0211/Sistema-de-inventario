@@ -1,3 +1,7 @@
+"""Controlador de clientes: aquí se define el Blueprint con las rutas para listar, crear,
+editar y eliminar clientes (CRUD), con búsqueda por nombre en el listado.
+Al eliminar un cliente se restaura el stock de los productos de sus ventas asociadas."""
+
 import secrets
 from flask import Blueprint, render_template, request, redirect, url_for
 from sqlalchemy.exc import SQLAlchemyError
