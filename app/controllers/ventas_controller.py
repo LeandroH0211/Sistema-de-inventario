@@ -1,3 +1,7 @@
+"""Controlador de ventas: define el Blueprint 'ventas' con las rutas para registrar una
+nueva venta (con varios productos y descuento porcentual o fijo) y consultar el historial.
+Al registrar una venta valida el stock disponible, calcula el total y descuenta el stock."""
+
 from datetime import date
 from decimal import Decimal, InvalidOperation
 
