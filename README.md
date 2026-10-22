@@ -7,7 +7,6 @@ desarrollada en equipo con Python, Flask y SQLAlchemy.
 - [Registrar, editar y eliminar productos]
 - [Control de stock]
 - [Registro de ventas y su historial]
-- [Otras funciones que tenga el sistema]
 
 ## Tecnologías
 - Python 3
